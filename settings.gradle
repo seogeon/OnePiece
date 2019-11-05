@@ -1,0 +1,4 @@
+rootProject.name = 'onepiece'
+include 'onepiece-common'
+include 'onepiece-sanji'
+include 'onepiece-zoro'
