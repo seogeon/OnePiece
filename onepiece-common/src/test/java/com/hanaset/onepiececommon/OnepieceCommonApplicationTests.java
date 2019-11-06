@@ -1,10 +1,10 @@
-package com.hanaset.onepiecesanji;
+package com.hanaset.onepiececommon;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OnepieceSanjiApplicationTests {
+class OnepieceCommonApplicationTests {
 
     @Test
     void contextLoads() {

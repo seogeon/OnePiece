@@ -5,6 +5,7 @@ dependencies {
 
 //    compile group: 'ca.pjer', name: 'logback-awslogs-appender', version: '1.1.0'
 
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1' // Jsoup Parser
     compileOnly('org.projectlombok:lombok')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
