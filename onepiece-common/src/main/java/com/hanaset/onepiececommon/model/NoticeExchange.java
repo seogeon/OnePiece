@@ -3,7 +3,9 @@ package com.hanaset.onepiececommon.model;
 public enum  NoticeExchange {
     UPBIT("UPBIT"),
     BITHUMB("BITHUMB"),
-    GDAC("GDAC");
+    GDAC("GDAC"),
+    OKEX("OKEX"),
+    BITSONIC("BITSONIC");
 
     String exchange;
 

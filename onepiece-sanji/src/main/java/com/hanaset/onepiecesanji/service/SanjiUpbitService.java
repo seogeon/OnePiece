@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,14 +34,14 @@ public class SanjiUpbitService {
     public void searchUpbit() {
         try {
             Response<UpbitNoticeResponse<UpbitNoticeData>> response = sanjiUpbitRestApiClient.getNotices("general").execute();
-            Integer stardardId = noticeRepository.getMaxNoticeId(NoticeExchange.UPBIT.getExchange()).orElse(0);
-
+            BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.UPBIT.getExchange()).orElse(BigDecimal.ZERO);
+            System.out.println(standardId.toPlainString());
             if (response.isSuccessful()) {
-                List<NoticeEntity> noticeEntities = response.body().getData().getList().stream().filter(upbitNoticeInfo -> upbitNoticeInfo.getId().compareTo(stardardId) > 0)
+                List<NoticeEntity> noticeEntities = response.body().getData().getList().stream().filter(upbitNoticeInfo -> BigDecimal.valueOf(upbitNoticeInfo.getId()).compareTo(standardId) > 0)
                         .map(upbitNoticeInfo ->
                                 NoticeEntity.builder()
                                         .exchange(NoticeExchange.UPBIT)
-                                        .noticeId(upbitNoticeInfo.getId())
+                                        .noticeId(BigDecimal.valueOf(upbitNoticeInfo.getId()))
                                         .kind(upbitNoticeInfo.getTitle().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
                                         .title(upbitNoticeInfo.getTitle())
                                         .url("https://www.upbit.com/service_center/notice?id=" + upbitNoticeInfo.getId())
@@ -49,8 +50,8 @@ public class SanjiUpbitService {
                                         .build()
                         ).collect(Collectors.toList());
 
-                System.out.println(noticeEntities);
-                ///noticeRepository.saveAll(noticeEntities);
+                //System.out.println(noticeEntities);
+                noticeRepository.saveAll(noticeEntities);
             } else {
                 log.error("Upbit Notice search ERROR : {}", response.errorBody().byteString().toString());
             }

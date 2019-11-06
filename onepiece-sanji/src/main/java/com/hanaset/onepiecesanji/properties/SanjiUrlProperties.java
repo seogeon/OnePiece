@@ -20,4 +20,10 @@ public class SanjiUrlProperties {
 
     @Value("${gdac.eventUrl}")
     private String gdacEventUrl;
+
+    @Value("${okex.eventUrl}")
+    private String okexEventUrl;
+
+    @Value("${bitsonic.eventUrl}")
+    private String bitsonicEventUrl;
 }

@@ -1,10 +1,8 @@
 package com.hanaset;
 
 import com.hanaset.onepiecesanji.client.RestApiClient;
-import com.hanaset.onepiecesanji.service.SanjiBithumbService;
+import com.hanaset.onepiecesanji.service.*;
 import com.hanaset.onepiecesanji.properties.SanjiUrlProperties;
-import com.hanaset.onepiecesanji.service.SanjiGdacService;
-import com.hanaset.onepiecesanji.service.SanjiUpbitService;
 import com.hanaset.onepiececommon.repository.NoticeRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +35,13 @@ public class OnepieceSanjiApplicationTests {
     @Autowired
     private SanjiGdacService sanjiGdacService;
 
+    @Autowired
+    private SanjiOkexService sanjiOkexService;
+
+    @Autowired
+    private SanjiBitsonicService sanjiBitsonicService;
+
+
     @Test
     public void upbit() {
         System.out.println("=========================================");
@@ -47,7 +52,7 @@ public class OnepieceSanjiApplicationTests {
     @Test
     public void bithumb() {
         System.out.println("=========================================");
-       // sanjiBithumbParser.searchBithumbEvent();
+        sanjiBithumbParser.searchBithumbEvent();
         sanjiBithumbParser.searchBithumbNotice();
         System.out.println("=========================================");
     }
@@ -59,4 +64,18 @@ public class OnepieceSanjiApplicationTests {
         System.out.println("=========================================");
     }
 
+    @Test
+    public void okex() {
+        System.out.println("=========================================");
+        sanjiOkexService.searchOkexEvent();
+        System.out.println("=========================================");
+    }
+
+    @Test
+    public void bitsonic() {
+        System.out.println("=========================================");
+        sanjiBitsonicService.searchBitsonicEvent();
+        sanjiBitsonicService.searchBitsoicNotice();
+        System.out.println("=========================================");
+    }
 }

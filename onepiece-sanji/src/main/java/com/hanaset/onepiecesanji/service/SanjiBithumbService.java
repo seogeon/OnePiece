@@ -13,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -40,22 +41,24 @@ public class SanjiBithumbService {
             Document bithumbDocument = response.parse();
 
             List<Element> elements = bithumbDocument.select("[class=inner-container]");
-            Integer standardId = noticeRepository.getMaxNoticeId(NoticeExchange.BITHUMB.getExchange()).orElse(0);
+            BigDecimal standardId = noticeRepository.getMaxNoticeIdAndKind(NoticeExchange.BITHUMB.getExchange(), NoticeKind.EVENT.getKind()).orElse(BigDecimal.ZERO);
+
+            System.out.println(standardId.toPlainString());
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
 
             List<NoticeEntity> noticeEntities = elements.stream().filter(element ->
-                    Integer.parseInt(element.attributes().get("onclick").replaceAll("[^0-9]", "")) > standardId
-            ).map(element ->
-                    NoticeEntity.builder()
-                            .exchange(NoticeExchange.BITHUMB)
-                            .noticeId(Integer.parseInt(element.attributes().get("onclick").replaceAll("[^0-9]", "")))
-                            .kind(NoticeKind.EVENT)
-                            .title(element.select("[class=block-with-text]").text())
-                            .url("https://cafe.bithumb.com/view/board-contents/" + element.attributes().get("onclick").replaceAll("[^0-9]", ""))
-                            .createdAt(LocalDateTime.parse(element.text().replace(element.select("[class=block-with-text]").text() + " ", ""), dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
-                            .build()
-            ).collect(Collectors.toList());
+                    BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
+                    .map(element ->
+                            NoticeEntity.builder()
+                                    .exchange(NoticeExchange.BITHUMB)
+                                    .noticeId(BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))))
+                                    .kind(NoticeKind.EVENT)
+                                    .title(element.select("[class=block-with-text]").text())
+                                    .url("https://cafe.bithumb.com/view/board-contents/" + element.attributes().get("onclick").replaceAll("[^0-9]", ""))
+                                    .createdAt(LocalDateTime.parse(element.text().replace(element.select("[class=block-with-text]").text() + " ", ""), dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
+                                    .build()
+                    ).collect(Collectors.toList());
 
             noticeRepository.saveAll(noticeEntities);
         } catch (IOException e) {
@@ -69,16 +72,17 @@ public class SanjiBithumbService {
             Document bithumbDocument = response.parse();
 
             List<Element> elements = bithumbDocument.select("[class=col-20 col-md-3]");
-            Integer standardId = noticeRepository.getMaxNoticeId(NoticeExchange.BITHUMB.getExchange()).orElse(0);
+            BigDecimal standardId = noticeRepository.getMaxNoticeIdAndKind(NoticeExchange.BITHUMB.getExchange(), NoticeKind.NOTICE.getKind()).orElse(BigDecimal.ZERO);
 
+            System.out.println(standardId.toPlainString());
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
 
             List<NoticeEntity> noticeEntities = elements.stream().filter(element ->
-                    Integer.parseInt(element.attributes().get("onclick").replaceAll("[^0-9]", "")) > standardId
+                    BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0
             ).map(element ->
                     NoticeEntity.builder()
                             .exchange(NoticeExchange.BITHUMB)
-                            .noticeId(Integer.parseInt(element.attributes().get("onclick").replaceAll("[^0-9]", "")))
+                            .noticeId(BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))))
                             .kind(element.select("[class=one-line]").text().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
                             .title(element.select("[class=one-line]").text())
                             .url("https://cafe.bithumb.com/view/board-contents/" + element.attributes().get("onclick").replaceAll("[^0-9]", ""))

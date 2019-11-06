@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,16 +32,17 @@ public class SanjiGdacService {
 
     public void searchGdacEvent() {
 
-        Integer standardId = noticeRepository.getMaxNoticeId(NoticeExchange.GDAC.getExchange()).orElse(0);
+        BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.GDAC.getExchange()).orElse(BigDecimal.ZERO);
+        System.out.println(standardId.toPlainString());
 
         try {
             Response<GdacNoticeResponse<GdacNoticeInfo>> response = sanjiGdacRestApiClient.getNotices().execute();
 
             if(response.isSuccessful()) {
-                List<NoticeEntity> entityList = response.body().getData().stream().filter(gdacNoticeInfo -> Integer.parseInt(gdacNoticeInfo.getId()) > standardId)
+                List<NoticeEntity> entityList = response.body().getData().stream().filter(gdacNoticeInfo -> BigDecimal.valueOf(gdacNoticeInfo.getId()).compareTo(standardId) > 0)
                         .map(gdacNoticeInfo ->
                                 NoticeEntity.builder()
-                                .noticeId(Integer.parseInt(gdacNoticeInfo.getId()))
+                                .noticeId(BigDecimal.valueOf(gdacNoticeInfo.getId()))
                                 .exchange(NoticeExchange.GDAC)
                                 .kind(NoticeKind.EVENT)
                                 .createdAt(ZonedDateTime.parse(gdacNoticeInfo.getEventStartTime()))

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Data
@@ -20,7 +21,7 @@ public class NoticeEntity {
     private Integer id;
 
     @Column(name = "notice_id")
-    private Integer noticeId;
+    private BigDecimal noticeId;
 
     @Enumerated(EnumType.STRING)
     private NoticeExchange exchange;

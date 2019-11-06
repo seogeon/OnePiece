@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 public class GdacNoticeInfo {
 
-    private String id;
+    private Long id;
 
     @SerializedName(value = "event_name")
     private String eventName;
