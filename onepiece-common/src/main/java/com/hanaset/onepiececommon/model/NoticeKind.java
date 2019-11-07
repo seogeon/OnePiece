@@ -1,6 +1,7 @@
 package com.hanaset.onepiececommon.model;
 
 public enum NoticeKind {
+    ALL("ALL"),
     NOTICE("NOTICE"),
     EVENT("EVENT");
 

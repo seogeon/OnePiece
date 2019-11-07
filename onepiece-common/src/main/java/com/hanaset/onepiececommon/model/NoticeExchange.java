@@ -1,6 +1,7 @@
 package com.hanaset.onepiececommon.model;
 
 public enum  NoticeExchange {
+    ALL("ALL"),
     UPBIT("UPBIT"),
     BITHUMB("BITHUMB"),
     GDAC("GDAC"),
