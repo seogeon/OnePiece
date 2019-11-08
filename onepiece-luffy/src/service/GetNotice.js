@@ -5,7 +5,8 @@ class NoticeApi {
     static async getNewsToOversea(oversea) {
 
         let response =
-            await axios.get("http://localhost:5001/notice?oversea=" + oversea)
+            await axios.get("http://15.164.216.197:5001/notice?oversea=" + oversea)
+
             .then(response => {
                 console.log(response);
                 return response;
