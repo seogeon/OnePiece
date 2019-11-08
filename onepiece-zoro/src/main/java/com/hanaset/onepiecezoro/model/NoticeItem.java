@@ -12,9 +12,13 @@ import java.time.ZonedDateTime;
 @Builder
 public class NoticeItem {
 
+    private Integer id;
+
     private BigDecimal noticeId;
 
     private NoticeExchange exchange;
+
+    private Boolean oversea;
 
     private NoticeKind kind;
 

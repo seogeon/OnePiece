@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 @ConditionalOnProperty(prefix = "cache.scheduler", name = "enabled", havingValue = "true")
 public class ZoroCacheScheduler {
@@ -17,6 +19,10 @@ public class ZoroCacheScheduler {
 
     @Scheduled(cron = "0 10 */1 * * *")
     public void loadNotice() {
+        zoroCacheLoadService.loadNotice();
+    }
+
+    public void initNotice() {
         zoroCacheLoadService.loadNotice();
     }
 }

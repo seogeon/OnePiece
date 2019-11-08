@@ -9,10 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/notice")
@@ -30,4 +27,12 @@ public class ZoroNoticeRestApi extends ZoroApiRestSupport {
                                      @SortDefault.SortDefaults({@SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
         return response(zoroNoticeService.findNotices(exchange, kind, pageable));
     }
+
+    @GetMapping
+    public ResponseEntity findNoticeToOverea(@RequestParam Integer oversea,
+                                             @PageableDefault(size = 5)
+                                             @SortDefault.SortDefaults({@SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
+        return response(zoroNoticeService.findNoticesToOversea(oversea, pageable));
+    }
 }
+

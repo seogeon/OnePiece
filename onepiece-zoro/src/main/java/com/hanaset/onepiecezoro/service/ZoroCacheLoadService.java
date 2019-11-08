@@ -7,6 +7,7 @@ import com.hanaset.onepiecezoro.model.NoticeItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,15 @@ public class ZoroCacheLoadService {
         this.noticeRepository = noticeRepository;
     }
 
+    @PostConstruct
     public void loadNotice() {
 
         List<NoticeEntity> entityList = noticeRepository.findAll();
 
         NoticeCache.noticeList = entityList.stream().map(noticeEntity ->
                 NoticeItem.builder()
+                        .id(noticeEntity.getId())
+                        .oversea(noticeEntity.getOversea())
                         .noticeId(noticeEntity.getNoticeId())
                         .exchange(noticeEntity.getExchange())
                         .kind(noticeEntity.getKind())

@@ -1,0 +1,25 @@
+.news-list {
+    width: 100%;
+    margin: 10px;
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.25);
+}
+
+.news-exchange {
+    border-right-color: #dee2e6;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    font-weight: bolder;
+}
+
+.news-list-item{
+    position: relative;
+    display: block;
+    padding: .50rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+}

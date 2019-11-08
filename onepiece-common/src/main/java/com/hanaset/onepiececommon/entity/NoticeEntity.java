@@ -26,6 +26,8 @@ public class NoticeEntity {
     @Enumerated(EnumType.STRING)
     private NoticeExchange exchange;
 
+    private Boolean oversea;
+
     @Enumerated(EnumType.STRING)
     private NoticeKind kind;
 
