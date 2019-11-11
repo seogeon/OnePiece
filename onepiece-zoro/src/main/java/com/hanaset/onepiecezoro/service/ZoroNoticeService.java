@@ -6,6 +6,7 @@ import com.hanaset.onepiececommon.model.NoticeKind;
 import com.hanaset.onepiecezoro.cache.NoticeCache;
 import com.hanaset.onepiecezoro.model.NoticeItem;
 import com.hanaset.onepiecezoro.model.NoticePageResponse;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Pageable;
@@ -127,5 +128,50 @@ public class ZoroNoticeService {
 
         return response;
 
+    }
+
+    public NoticePageResponse searchKeyword(NoticeExchange exchange, String keyword, Pageable pageable) {
+
+        List<NoticeItem> noticeItems;
+
+        if (exchange.equals(NoticeExchange.ALL)) {
+            noticeItems = NoticeCache.noticeList.stream()
+                    .filter(noticeItem -> noticeItem.getTitle().contains(keyword))
+                    .collect(Collectors.toList());
+        } else {
+            noticeItems = NoticeCache.noticeList.stream()
+                    .filter(noticeItem -> noticeItem.getExchange().equals(exchange) && noticeItem.getTitle().contains(keyword))
+                    .collect(Collectors.toList());
+        }
+
+        PagedListHolder<NoticeItem> pagedListHolder = new PagedListHolder(noticeItems);
+        pagedListHolder.setPage(pageable.getPageSize());
+        pagedListHolder.setPageSize(pageable.getPageSize());
+
+        List<MutableSortDefinition> sortDefinitions = Lists.newArrayList();
+
+        final Sort pageableSort = pageable.getSort();
+        if (pageableSort != null) {
+            Iterator<Sort.Order> iterator = pageableSort.iterator();
+            while (iterator.hasNext()) {
+                final Sort.Order order = iterator.next();
+                MutableSortDefinition sortDefinition = new MutableSortDefinition();
+                sortDefinition.setProperty(order.getProperty());
+                sortDefinition.setAscending(order.isAscending());
+                sortDefinitions.add(sortDefinition);
+            }
+        }
+
+        sort(pagedListHolder, sortDefinitions);
+
+        NoticePageResponse response = NoticePageResponse.builder()
+                .currentPage(Long.valueOf(pageable.getPageNumber()))
+                .currentSize(Long.valueOf(pageable.getPageSize()))
+                .totalPage(Long.valueOf(pagedListHolder.getPageCount()))
+                .totalSize(Long.valueOf(pagedListHolder.getNrOfElements()))
+                .noticeItemList(pagedListHolder.getPageList())
+                .build();
+
+        return response;
     }
 }

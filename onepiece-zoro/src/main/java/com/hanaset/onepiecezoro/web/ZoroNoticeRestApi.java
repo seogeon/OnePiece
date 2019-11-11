@@ -43,5 +43,12 @@ public class ZoroNoticeRestApi extends ZoroApiRestSupport {
     public ResponseEntity findExchangeList() {
         return response(zoroExchangeService.getExchangeList());
     }
+
+    @GetMapping("/{exchange}")
+    public ResponseEntity searchKeyword(@PathVariable NoticeExchange exchange, @RequestParam String keyword,
+                                        @PageableDefault(size = 10)
+                                        @SortDefault.SortDefaults({@SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
+        return response(zoroNoticeService.searchKeyword(exchange, keyword, pageable));
+    }
 }
 

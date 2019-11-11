@@ -46,7 +46,7 @@ class SearchBar extends Component {
                     })}
                 </Form.Control>
                 <Form.Control aria-describedby="basic-addon1"/>
-                <Button id="search-button" variant="info">검 색</Button>
+                <Button type="submit" id="search-button" variant="info">검 색</Button>
             </Form.Group>
         }
     }
