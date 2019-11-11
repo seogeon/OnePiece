@@ -23,10 +23,9 @@ public class NoticeEntity {
     @Column(name = "notice_id")
     private BigDecimal noticeId;
 
-    @Enumerated(EnumType.STRING)
-    private NoticeExchange exchange;
-
-    private Boolean oversea;
+    @OneToOne
+    @JoinColumn(name = "exchange_code")
+    private ExchangeEntity exchangeCode;
 
     @Enumerated(EnumType.STRING)
     private NoticeKind kind;

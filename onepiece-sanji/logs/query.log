@@ -1,0 +1,8 @@
+2019-11-11 14:00:13.889 DEBUG [           main] [o.h.SQL] logStatement (92): SELECT Max(notice_id) from Onepiece.TB_OP_NOTICE where exchange = ?
+2019-11-11 14:01:26.228 DEBUG [           main] [o.h.SQL] logStatement (92): SELECT Max(notice_id) from Onepiece.TB_OP_NOTICE where TB_OP_EXCHANGE.code = ?
+2019-11-11 14:04:01.690 DEBUG [           main] [o.h.SQL] logStatement (92): SELECT Max(notice_id) from Onepiece.TB_OP_NOTICE INNER JOIN TB_OP_EXCHANGE TOE on TB_OP_NOTICE.exchange_code = TOE.code where TOE.code = ?
+2019-11-11 14:04:01.770 DEBUG [           main] [o.h.SQL] logStatement (92): select exchangeen_.code, exchangeen_.exchange as exchange2_0_, exchangeen_.oversea as oversea3_0_ from TB_OP_EXCHANGE exchangeen_ where exchangeen_.code=?
+2019-11-11 14:04:01.790 DEBUG [           main] [o.h.SQL] logStatement (92): insert into TB_OP_NOTICE (created_at, exchange_code, kind, notice_id, reg_dtime, title, upd_dtime, updated_at, url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2019-11-11 14:04:01.804 DEBUG [           main] [o.h.SQL] logStatement (92): insert into TB_OP_NOTICE (created_at, exchange_code, kind, notice_id, reg_dtime, title, upd_dtime, updated_at, url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2019-11-11 14:04:01.813 DEBUG [           main] [o.h.SQL] logStatement (92): insert into TB_OP_NOTICE (created_at, exchange_code, kind, notice_id, reg_dtime, title, upd_dtime, updated_at, url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2019-11-11 14:04:01.822 DEBUG [           main] [o.h.SQL] logStatement (92): insert into TB_OP_NOTICE (created_at, exchange_code, kind, notice_id, reg_dtime, title, upd_dtime, updated_at, url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)

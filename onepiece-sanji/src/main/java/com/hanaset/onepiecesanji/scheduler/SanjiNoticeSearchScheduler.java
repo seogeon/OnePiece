@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 @ConditionalOnProperty(prefix = "notice.scheduler", name = "enabled", havingValue = "true")
 public class SanjiNoticeSearchScheduler {
@@ -27,6 +29,7 @@ public class SanjiNoticeSearchScheduler {
         this.sanjiOkexService = sanjiOkexService;
     }
 
+    @PostConstruct
     @Scheduled(cron = "0 0 */1 * * *", zone = "Asia/Seoul")
     public void searchNotice() {
         sanjiUpbitService.searchUpbit();
@@ -35,4 +38,13 @@ public class SanjiNoticeSearchScheduler {
         sanjiGdacService.searchGdacEvent();
         sanjiOkexService.searchOkexEvent();
     }
+
+//    @Scheduled(fixedDelay = 1000 * 60)
+//    public void delayNotice() {
+//        sanjiUpbitService.searchUpbit();
+//        sanjiBithumbService.searchBithumbEvent();
+//        sanjiBithumbService.searchBithumbNotice();
+//        sanjiGdacService.searchGdacEvent();
+//        sanjiOkexService.searchOkexEvent();
+//    }
 }

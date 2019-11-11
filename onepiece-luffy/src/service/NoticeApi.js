@@ -16,6 +16,23 @@ class NoticeApi {
             })
         return response;
     }
+
+    static async getExchangeList() {
+
+        let response =
+            await axios.get("http://15.164.216.197:5001/notice/exchange_list")
+
+                .then(response => {
+                    console.log(response);
+                    return response;
+                })
+                .catch(response => {
+                    return response;
+                })
+        return response;
+    }
 }
+
+
 
 export default NoticeApi;

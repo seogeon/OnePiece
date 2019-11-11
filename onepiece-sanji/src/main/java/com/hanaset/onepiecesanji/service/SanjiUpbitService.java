@@ -1,6 +1,7 @@
 package com.hanaset.onepiecesanji.service;
 
 import com.hanaset.onepiececommon.converter.ZonedDateTimeConverter;
+import com.hanaset.onepiececommon.entity.ExchangeEntity;
 import com.hanaset.onepiececommon.entity.NoticeEntity;
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
@@ -40,7 +41,7 @@ public class SanjiUpbitService {
                 List<NoticeEntity> noticeEntities = response.body().getData().getList().stream().filter(upbitNoticeInfo -> BigDecimal.valueOf(upbitNoticeInfo.getId()).compareTo(standardId) > 0)
                         .map(upbitNoticeInfo ->
                                 NoticeEntity.builder()
-                                        .exchange(NoticeExchange.UPBIT)
+                                        .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.UPBIT).build())
                                         .noticeId(BigDecimal.valueOf(upbitNoticeInfo.getId()))
                                         .kind(upbitNoticeInfo.getTitle().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
                                         .title(upbitNoticeInfo.getTitle())

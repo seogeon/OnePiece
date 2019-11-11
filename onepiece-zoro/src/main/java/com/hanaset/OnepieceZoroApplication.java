@@ -4,6 +4,7 @@ import com.amazonaws.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
@@ -26,7 +27,9 @@ public class OnepieceZoroApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(OnepieceZoroApplication.class, args);
+        SpringApplication application = new SpringApplication(OnepieceZoroApplication.class);
+        application.addListeners(new ApplicationPidFileWriter());
+        application.run(args);
     }
 
     @EventListener(ApplicationReadyEvent.class)

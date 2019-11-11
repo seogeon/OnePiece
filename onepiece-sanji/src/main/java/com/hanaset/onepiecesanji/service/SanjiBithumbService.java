@@ -1,5 +1,6 @@
 package com.hanaset.onepiecesanji.service;
 
+import com.hanaset.onepiececommon.entity.ExchangeEntity;
 import com.hanaset.onepiececommon.entity.NoticeEntity;
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
@@ -51,7 +52,7 @@ public class SanjiBithumbService {
                     BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
                     .map(element ->
                             NoticeEntity.builder()
-                                    .exchange(NoticeExchange.BITHUMB)
+                                    .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITHUMB).build())
                                     .noticeId(BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))))
                                     .kind(NoticeKind.EVENT)
                                     .title(element.select("[class=block-with-text]").text())
@@ -81,7 +82,7 @@ public class SanjiBithumbService {
                     BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0
             ).map(element ->
                     NoticeEntity.builder()
-                            .exchange(NoticeExchange.BITHUMB)
+                            .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITHUMB).build())
                             .noticeId(BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))))
                             .kind(element.select("[class=one-line]").text().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
                             .title(element.select("[class=one-line]").text())

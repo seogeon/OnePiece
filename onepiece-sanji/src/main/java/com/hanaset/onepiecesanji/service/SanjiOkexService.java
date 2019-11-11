@@ -1,5 +1,6 @@
 package com.hanaset.onepiecesanji.service;
 
+import com.hanaset.onepiececommon.entity.ExchangeEntity;
 import com.hanaset.onepiececommon.entity.NoticeEntity;
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
@@ -43,7 +44,7 @@ public class SanjiOkexService {
                     .map(element ->
                         NoticeEntity.builder()
                                 .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))))
-                                .exchange(NoticeExchange.OKEX)
+                                .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.OKEX).build())
                                 .title(element.text())
                                 .kind(element.text().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
                                 .url("https://support.okex.co.kr/hc/ko/articles/" + element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))

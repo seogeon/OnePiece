@@ -29,9 +29,9 @@ public class ZoroCacheLoadService {
         NoticeCache.noticeList = entityList.stream().map(noticeEntity ->
                 NoticeItem.builder()
                         .id(noticeEntity.getId())
-                        .oversea(noticeEntity.getOversea())
+                        .oversea(noticeEntity.getExchangeCode().getOversea())
                         .noticeId(noticeEntity.getNoticeId())
-                        .exchange(noticeEntity.getExchange())
+                        .exchange(noticeEntity.getExchangeCode().getCode())
                         .kind(noticeEntity.getKind())
                         .createdAt(noticeEntity.getCreatedAt())
                         .updatedAt(noticeEntity.getUpdatedAt())
@@ -41,6 +41,5 @@ public class ZoroCacheLoadService {
         ).collect(Collectors.toList());
 
         log.info("cache Load :{}", entityList);
-
     }
 }

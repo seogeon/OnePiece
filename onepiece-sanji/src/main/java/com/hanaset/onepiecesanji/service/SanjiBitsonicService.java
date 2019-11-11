@@ -1,5 +1,6 @@
 package com.hanaset.onepiecesanji.service;
 
+import com.hanaset.onepiececommon.entity.ExchangeEntity;
 import com.hanaset.onepiececommon.entity.NoticeEntity;
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
@@ -49,7 +50,7 @@ public class SanjiBitsonicService {
                     .map(element ->
                             NoticeEntity.builder()
                             .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))))
-                            .exchange(NoticeExchange.BITSONIC)
+                            .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITSONIC).build())
                             .kind(NoticeKind.EVENT)
                             .title(element.children().select("[class=notice-list-link-title]").text())
                             .url("https://bitsonic.co.kr" + element.attr("href"))
@@ -75,7 +76,7 @@ public class SanjiBitsonicService {
                     .map(element ->
                             NoticeEntity.builder()
                                     .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))))
-                                    .exchange(NoticeExchange.BITSONIC)
+                                    .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITSONIC).build())
                                     .kind(NoticeKind.NOTICE)
                                     .title(element.children().select("[class=notice-list-link-title]").text())
                                     .url("https://bitsonic.co.kr" + element.attr("href"))

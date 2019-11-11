@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './News.css';
-import NoticeApi from '../../service/GetNotice'
+import NoticeApi from '../../service/NoticeApi'
 import ListGroup from "react-bootstrap/esm/ListGroup";
 
 class NewsBody extends Component {

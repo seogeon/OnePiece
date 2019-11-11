@@ -1,0 +1,2 @@
+2019-11-11 14:00:13.929 ERROR [           main] [o.h.e.j.s.SqlExceptionHelper] logExceptions (131): Unknown column 'exchange' in 'where clause'
+2019-11-11 14:01:26.377 ERROR [           main] [o.h.e.j.s.SqlExceptionHelper] logExceptions (131): Unknown column 'TB_OP_EXCHANGE.code' in 'where clause'

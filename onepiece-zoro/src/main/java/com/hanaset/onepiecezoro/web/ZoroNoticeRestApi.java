@@ -2,6 +2,7 @@ package com.hanaset.onepiecezoro.web;
 
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
+import com.hanaset.onepiecezoro.service.ZoroExchangeService;
 import com.hanaset.onepiecezoro.service.ZoroNoticeService;
 import com.hanaset.onepiecezoro.web.support.ZoroApiRestSupport;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class ZoroNoticeRestApi extends ZoroApiRestSupport {
 
     private final ZoroNoticeService zoroNoticeService;
+    private final ZoroExchangeService zoroExchangeService;
 
-    public ZoroNoticeRestApi(ZoroNoticeService zoroNoticeService) {
+    public ZoroNoticeRestApi(ZoroNoticeService zoroNoticeService,
+                             ZoroExchangeService zoroExchangeService) {
         this.zoroNoticeService = zoroNoticeService;
+        this.zoroExchangeService = zoroExchangeService;
     }
 
     @GetMapping("/{exchange}/{kind}")
@@ -33,6 +37,11 @@ public class ZoroNoticeRestApi extends ZoroApiRestSupport {
                                              @PageableDefault(size = 5)
                                              @SortDefault.SortDefaults({@SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
         return response(zoroNoticeService.findNoticesToOversea(oversea, pageable));
+    }
+
+    @GetMapping("/exchange_list")
+    public ResponseEntity findExchangeList() {
+        return response(zoroExchangeService.getExchangeList());
     }
 }
 

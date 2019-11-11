@@ -1,5 +1,6 @@
 package com.hanaset.onepiecesanji.service;
 
+import com.hanaset.onepiececommon.entity.ExchangeEntity;
 import com.hanaset.onepiececommon.entity.NoticeEntity;
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
@@ -43,7 +44,7 @@ public class SanjiGdacService {
                         .map(gdacNoticeInfo ->
                                 NoticeEntity.builder()
                                 .noticeId(BigDecimal.valueOf(gdacNoticeInfo.getId()))
-                                .exchange(NoticeExchange.GDAC)
+                                .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.GDAC).build())
                                 .kind(NoticeKind.EVENT)
                                 .createdAt(ZonedDateTime.parse(gdacNoticeInfo.getEventStartTime()))
                                 .updatedAt(ZonedDateTime.parse(gdacNoticeInfo.getEventEndTime()))
