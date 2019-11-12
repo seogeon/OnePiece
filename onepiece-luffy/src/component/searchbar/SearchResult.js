@@ -110,11 +110,11 @@ class SearchResult extends Component {
             this.createPageButton();
 
             return (<div>
-                    <Table responsive>
+                    <Table responsive id="notice-table">
                         <thead>
                         <tr>
                             <th>거래소</th>
-                            <th>제 목</th>
+                            <th className="notice-title">제 목</th>
                             <th>날 짜</th>
                         </tr>
                         </thead>
@@ -128,7 +128,7 @@ class SearchResult extends Component {
                                 return (
                                     <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
                                         <td>{object.exchange}</td>
-                                        <td>{object.title} <Badge variant="info">New</Badge></td>
+                                        <td className="notice-title">{object.title} <Badge variant="info">New</Badge></td>
                                         <td>{object.createdAt.split("T")[0]}</td>
                                     </tr>
                                 )

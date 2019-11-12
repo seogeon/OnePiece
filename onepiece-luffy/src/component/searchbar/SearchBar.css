@@ -12,7 +12,7 @@
 }
 
 #exchange_list {
-    width: 30%;
+    width: 38%;
     min-width: 80px;
 }
 
@@ -31,4 +31,11 @@
     margin-bottom: 2%;
 }
 
+.notice-title {
+    width: 50%;
+}
+
+#notice-table {
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.25);
+}
 
