@@ -32,10 +32,10 @@ class NoticeApi {
         return response;
     }
 
-    static async searchNotice(exchange, keyword) {
+    static async searchNotice(exchange, keyword, page) {
 
         let response =
-            await axios.get("http://15.164.216.197:5001/notice/" + exchange + "?keyword=" + keyword)
+            await axios.get("http://15.164.216.197:5001/notice/" + exchange + "?keyword=" + keyword + "&page=" + page)
 
                 .then(response => {
                     console.log(response);

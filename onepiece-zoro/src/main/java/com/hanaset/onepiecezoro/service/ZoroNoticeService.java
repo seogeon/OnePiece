@@ -43,8 +43,6 @@ public class ZoroNoticeService {
         }
 
         PagedListHolder<NoticeItem> pagedListHolder = new PagedListHolder(noticeItems);
-        pagedListHolder.setPage(pageable.getPageSize());
-        pagedListHolder.setPageSize(pageable.getPageSize());
 
         List<MutableSortDefinition> sortDefinitions = Lists.newArrayList();
 
@@ -62,6 +60,8 @@ public class ZoroNoticeService {
 
         sort(pagedListHolder, sortDefinitions);
 
+        pagedListHolder.setPage(pageable.getPageNumber());
+        pagedListHolder.setPageSize(pageable.getPageSize());
 
         NoticePageResponse response = NoticePageResponse.builder()
                 .currentPage(Long.valueOf(pageable.getPageNumber()))
@@ -99,8 +99,7 @@ public class ZoroNoticeService {
         }
 
         PagedListHolder<NoticeItem> pagedListHolder = new PagedListHolder(noticeItems);
-        pagedListHolder.setPage(pageable.getPageSize());
-        pagedListHolder.setPageSize(pageable.getPageSize());
+
 
         List<MutableSortDefinition> sortDefinitions = Lists.newArrayList();
 
@@ -117,6 +116,9 @@ public class ZoroNoticeService {
         }
 
         sort(pagedListHolder, sortDefinitions);
+
+        pagedListHolder.setPage(pageable.getPageNumber());
+        pagedListHolder.setPageSize(pageable.getPageSize());
 
         NoticePageResponse response = NoticePageResponse.builder()
                 .currentPage(Long.valueOf(pageable.getPageNumber()))
@@ -145,8 +147,7 @@ public class ZoroNoticeService {
         }
 
         PagedListHolder<NoticeItem> pagedListHolder = new PagedListHolder(noticeItems);
-        pagedListHolder.setPage(pageable.getPageSize());
-        pagedListHolder.setPageSize(pageable.getPageSize());
+
 
         List<MutableSortDefinition> sortDefinitions = Lists.newArrayList();
 
@@ -163,6 +164,9 @@ public class ZoroNoticeService {
         }
 
         sort(pagedListHolder, sortDefinitions);
+
+        pagedListHolder.setPage(pageable.getPageNumber());
+        pagedListHolder.setPageSize(pageable.getPageSize());
 
         NoticePageResponse response = NoticePageResponse.builder()
                 .currentPage(Long.valueOf(pageable.getPageNumber()))

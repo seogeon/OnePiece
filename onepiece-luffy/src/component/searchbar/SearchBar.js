@@ -43,7 +43,7 @@ class SearchBar extends Component {
         this.keyword = event.target.value;
 
         if (event.keyCode === 13) {
-            NoticeApi.searchNotice(this.state.exchange, this.keyword).then(value => {
+            NoticeApi.searchNotice(this.state.exchange, this.keyword, 0).then(value => {
                 if (value.data.code === '0') {
                     this.setState({
                         list: value.data.data
@@ -56,7 +56,7 @@ class SearchBar extends Component {
     }
 
     onClickButton() {
-        NoticeApi.searchNotice(this.state.exchange, this.keyword).then(value => {
+        NoticeApi.searchNotice(this.state.exchange, this.keyword, 0).then(value => {
             if (value.data.code === '0') {
                 this.setState({
                     list: value.data.data
