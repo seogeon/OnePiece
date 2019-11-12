@@ -2,10 +2,12 @@ import axios from 'axios';
 
 class NoticeApi {
 
+    static api = "http://13.125.248.134:5001";
+
     static async getNewsToOversea(oversea) {
 
         let response =
-            await axios.get("http://15.164.216.197:5001/notice?oversea=" + oversea)
+            await axios.get(this.api + "/notice?oversea=" + oversea)
 
             .then(response => {
                 console.log(response);
@@ -20,7 +22,7 @@ class NoticeApi {
     static async getExchangeList() {
 
         let response =
-            await axios.get("http://15.164.216.197:5001/notice/exchange_list")
+            await axios.get(this.api + "/notice/exchange_list")
 
                 .then(response => {
                     console.log(response);
@@ -35,7 +37,7 @@ class NoticeApi {
     static async searchNotice(exchange, keyword, page) {
 
         let response =
-            await axios.get("http://15.164.216.197:5001/notice/" + exchange + "?keyword=" + keyword + "&page=" + page)
+            await axios.get(this.api + "/notice/" + exchange + "?keyword=" + keyword + "&page=" + page)
 
                 .then(response => {
                     console.log(response);
