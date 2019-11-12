@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import NoticeApi from "../../service/NoticeApi"
+import Badge from "react-bootstrap/Badge";
 
 class SearchResult extends Component {
 
@@ -99,12 +100,6 @@ class SearchResult extends Component {
     }
 
     render() {
-        // console.log(this.props.keyword);
-        // console.log(this.props.data);
-        // console.log(this.props.exchange);
-        // console.log(this.props);
-
-        console.log(this.state);
 
         if (this.state.data === '0') {
             return <h1></h1>
@@ -125,13 +120,27 @@ class SearchResult extends Component {
                         </thead>
                         <tbody>
                         {noticeList.map(function (object, i) {
-                            return (
-                                <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
-                                    <td>{object.exchange}</td>
-                                    <td>{object.title}</td>
-                                    <td>{object.createdAt.split("T")[0]}</td>
-                                </tr>
-                            )
+
+                            let date = new Date();
+                            let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
+                            if(today === object.createdAt.split("T")[0]) {
+                                return (
+                                    <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
+                                        <td>{object.exchange}</td>
+                                        <td>{object.title} <Badge variant="info">New</Badge></td>
+                                        <td>{object.createdAt.split("T")[0]}</td>
+                                    </tr>
+                                )
+                            }else {
+                                return (
+                                    <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
+                                        <td>{object.exchange}</td>
+                                        <td>{object.title}</td>
+                                        <td>{object.createdAt.split("T")[0]}</td>
+                                    </tr>
+                                )
+                            }
                         })}
                         </tbody>
                     </Table>
