@@ -12,10 +12,12 @@
 
 #exchange_list {
     width: 30%;
+    min-width: 80px;
 }
 
 #search-button {
     width: 15%;
+    min-width: 60px;
 }
 
 .notice-item:hover {
