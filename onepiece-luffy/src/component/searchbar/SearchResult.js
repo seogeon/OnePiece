@@ -15,6 +15,7 @@ class SearchResult extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        this.pageActive = 0;
         this.setState({
             data: nextProps.data
         })
@@ -22,7 +23,6 @@ class SearchResult extends Component {
 
 
     onClickPageButton(page) {
-        console.log(page);
         NoticeApi.searchNotice(this.props.exchange, this.props.keyword, page).then(value => {
             this.pageActive = page;
 
@@ -40,7 +40,7 @@ class SearchResult extends Component {
     createPageButton() {
 
         this.buttons = [];
-        this.buttons.push(<Pagination.First/>);
+        this.buttons.push(<Pagination.First onClick={()=> this.onClickPageButton(0)}/>);
 
         if(this.state.data.total_page <= 5) {
             for (let i = 0; i < this.state.data.total_page; i++) {
@@ -95,7 +95,7 @@ class SearchResult extends Component {
 
 
         }
-        this.buttons.push(<Pagination.Last/>);
+        this.buttons.push(<Pagination.Last onClick={()=>this.onClickPageButton(this.state.data.total_page-1)}/>);
     }
 
     render() {
@@ -107,11 +107,10 @@ class SearchResult extends Component {
         console.log(this.state);
 
         if (this.state.data === '0') {
-            return <h1>검색하세요~</h1>
+            return <h1></h1>
         } else {
 
             let noticeList = this.state.data.notice_item_list;
-            let totalPage = this.state.data.total_page;
 
             this.createPageButton();
 
