@@ -31,6 +31,21 @@ class NoticeApi {
                 })
         return response;
     }
+
+    static async searchNotice(exchange, keyword) {
+
+        let response =
+            await axios.get("http://15.164.216.197:5001/notice/" + exchange + "?keyword=" + keyword)
+
+                .then(response => {
+                    console.log(response);
+                    return response;
+                })
+                .catch(response => {
+                    return response;
+                })
+        return response;
+    }
 }
 
 
