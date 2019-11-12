@@ -97,7 +97,7 @@ class SearchBar extends Component {
                     <ExchangeView exchange={this.state}/>
                     <div className="row">
                         <Form.Group id="search-bar">
-                            <Form.Control id={"exchange_list"} as="select" onChange={(value) => this.change(value)}>
+                            <Form.Control id="exchange-list" as="select" onChange={(value) => this.change(value)}>
                                 <option key={"ALL"} value={"ALL"}>ALL</option>
                                 {data.map(function (object, i) {
                                     return (

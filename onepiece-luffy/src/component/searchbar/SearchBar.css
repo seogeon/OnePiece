@@ -11,7 +11,7 @@
     /*box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.25);*/
 }
 
-#exchange_list {
+#exchange-list {
     width: 38%;
     min-width: 80px;
 }
@@ -32,7 +32,7 @@
 }
 
 .notice-title {
-    width: 50%;
+    width: 60%;
 }
 
 #notice-table {
@@ -42,5 +42,9 @@
 .exchange-name {
     font-family: Monospaced;
     padding: 5px;
+}
+
+.notice-exchange {
+    width: 20%;
 }
 
