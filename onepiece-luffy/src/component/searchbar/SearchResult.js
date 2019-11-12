@@ -69,7 +69,7 @@ class SearchResult extends Component {
 
                 this.buttons.push(<Pagination.Item key={0} onClick={()=> this.onClickPageButton(0)}>{1}</Pagination.Item>)
                 this.buttons.push(<Pagination.Ellipsis />)
-                for(let i =  this.state.data.total_page - 4; i <  this.state.data.total_page ; i++) {
+                for(let i =  this.state.data.total_page - 5; i <  this.state.data.total_page ; i++) {
                     if (this.pageActive === i) {
                         this.buttons.push(<Pagination.Item key={i} active>{i + 1}</Pagination.Item>)
                     } else {

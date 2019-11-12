@@ -14,6 +14,11 @@ function App() {
                     <SearchBar/>
                 </div>
             </div>
+            <div className="container">
+               <div id="developer-info" className="col-12">
+                   개발자 : b183523@gmail.com
+               </div>
+            </div>
         </div>
     );
 }

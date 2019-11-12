@@ -4,6 +4,7 @@ import SearchResult from './SearchResult'
 import './SearchBar.css';
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
+import ExchangeView from './ExchangeView';
 
 class SearchBar extends Component {
 
@@ -88,11 +89,12 @@ class SearchBar extends Component {
         const {data} = this.state;
 
         if (!data) {
-            return <h1>Loading...</h1>
+            return <div className="col-12"><h2>Loading...</h2></div>
         } else {
 
             return (
                 <div className="col-12">
+                    <ExchangeView exchange={this.state}/>
                     <div className="row">
                         <Form.Group id="search-bar">
                             <Form.Control id={"exchange_list"} as="select" onChange={(value) => this.change(value)}>
