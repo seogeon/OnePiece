@@ -41,7 +41,7 @@ class NewsBody extends Component {
                     let date = new Date();
                     let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
 
-                    if(today === object.createdAt.split("T")[0]) {
+                    if(today === object.updatedAt.split("T")[0]) {
                         return (
                             <ListGroup.Item className="news-list-item" key={object.id} action href={object.url} target="_blank">
                                 <div className='row'>

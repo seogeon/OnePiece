@@ -26,6 +26,7 @@ public class ZoroExchangeService {
                     .code(exchangeEntity.getCode())
                     .exchange(exchangeEntity.getExchange())
                     .oversea(exchangeEntity.getOversea())
+                    .url(exchangeEntity.getUrl())
                     .build()
         ).collect(Collectors.toList());
 

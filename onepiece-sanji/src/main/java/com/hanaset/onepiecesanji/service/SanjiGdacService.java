@@ -47,7 +47,7 @@ public class SanjiGdacService {
                                 .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.GDAC).build())
                                 .kind(NoticeKind.EVENT)
                                 .createdAt(ZonedDateTime.parse(gdacNoticeInfo.getEventStartTime()))
-                                .updatedAt(ZonedDateTime.parse(gdacNoticeInfo.getEventEndTime()))
+                                .updatedAt(ZonedDateTime.parse(gdacNoticeInfo.getEventStartTime()))
                                 .title(gdacNoticeInfo.getEventName())
                                 .url(gdacNoticeInfo.getImgLinkUrl())
                                 .build()

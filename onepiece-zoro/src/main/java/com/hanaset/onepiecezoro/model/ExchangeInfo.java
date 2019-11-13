@@ -13,4 +13,6 @@ public class ExchangeInfo {
     private String exchange;
 
     private Boolean oversea;
+
+    private String url;
 }

@@ -10,7 +10,7 @@ class NoticeApi {
             await axios.get(this.api + "/notice?oversea=" + oversea)
 
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 return response;
             })
             .catch(response => {
@@ -25,7 +25,7 @@ class NoticeApi {
             await axios.get(this.api + "/notice/exchange_list")
 
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     return response;
                 })
                 .catch(response => {
@@ -40,7 +40,7 @@ class NoticeApi {
             await axios.get(this.api + "/notice/" + exchange + "?keyword=" + keyword + "&page=" + page)
 
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     return response;
                 })
                 .catch(response => {

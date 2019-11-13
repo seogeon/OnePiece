@@ -48,3 +48,13 @@
     width: 20%;
 }
 
+.exchange-logo {
+    width: 120px;
+    padding: 10px;
+    /*box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.25);*/
+}
+
+.exchange-logo:hover {
+    background: rgba(4, 26, 55, 0.15);
+}
+

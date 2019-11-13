@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import NoticeApi from "../../service/NoticeApi"
 import Badge from "react-bootstrap/Badge";
+import './SearchBar.css';
 
 class SearchResult extends Component {
 
@@ -64,7 +65,7 @@ class SearchResult extends Component {
                 this.buttons.push(<Pagination.Ellipsis />)
                 this.buttons.push(<Pagination.Item key={this.state.data.total_page-1} onClick={()=> this.onClickPageButton(this.state.data.total_page-1)}>{this.state.data.total_page}</Pagination.Item>)
 
-            } else if(this.pageActive >= this.state.data.total_page - 3) {
+            } else if(this.pageActive >= this.state.data.total_page - 4) {
 
 
                 this.buttons.push(<Pagination.Item key={0} onClick={()=> this.onClickPageButton(0)}>{1}</Pagination.Item>)
@@ -124,12 +125,12 @@ class SearchResult extends Component {
                             let date = new Date();
                             let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
 
-                            if(today === object.createdAt.split("T")[0]) {
+                            if(today === object.updatedAt.split("T")[0]) {
                                 return (
                                     <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
                                         <td className="notice-exchange">{object.exchange}</td>
                                         <td className="notice-title">{object.title} <Badge variant="info">New</Badge></td>
-                                        <td>{object.createdAt.split("T")[0]}</td>
+                                        <td>{object.updatedAt.split("T")[0]}</td>
                                     </tr>
                                 )
                             }else {
@@ -137,7 +138,7 @@ class SearchResult extends Component {
                                     <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
                                         <td className="notice-exchange">{object.exchange}</td>
                                         <td className="notice-title">{object.title}</td>
-                                        <td>{object.createdAt.split("T")[0]}</td>
+                                        <td>{object.updatedAt.split("T")[0]}</td>
                                     </tr>
                                 )
                             }

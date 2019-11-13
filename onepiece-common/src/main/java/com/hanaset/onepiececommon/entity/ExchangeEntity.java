@@ -21,4 +21,6 @@ public class ExchangeEntity {
     private String exchange;
 
     private Boolean oversea;
+
+    private String url;
 }
