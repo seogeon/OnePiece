@@ -6,7 +6,8 @@ public enum  NoticeExchange {
     BITHUMB("BITHUMB"),
     GDAC("GDAC"),
     OKEX("OKEX"),
-    BITSONIC("BITSONIC");
+    BITSONIC("BITSONIC"),
+    HUOBI("HUOBI");
 
     String exchange;
 

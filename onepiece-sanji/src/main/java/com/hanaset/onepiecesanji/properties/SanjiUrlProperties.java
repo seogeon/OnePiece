@@ -26,4 +26,7 @@ public class SanjiUrlProperties {
 
     @Value("${bitsonic.eventUrl}")
     private String bitsonicEventUrl;
+
+    @Value("${huobi.eventUrl}")
+    private String huobiEventUrl;
 }

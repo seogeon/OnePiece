@@ -41,6 +41,9 @@ public class OnepieceSanjiApplicationTests {
     @Autowired
     private SanjiBitsonicService sanjiBitsonicService;
 
+    @Autowired
+    private SanjiHuobiService sanjiHuobiService;
+
 
     @Test
     public void upbit() {
@@ -76,6 +79,13 @@ public class OnepieceSanjiApplicationTests {
         System.out.println("=========================================");
         sanjiBitsonicService.searchBitsonicEvent();
         sanjiBitsonicService.searchBitsoicNotice();
+        System.out.println("=========================================");
+    }
+
+    @Test
+    public void huobi() {
+        System.out.println("=========================================");
+        sanjiHuobiService.searchHuobiEvent();
         System.out.println("=========================================");
     }
 }
