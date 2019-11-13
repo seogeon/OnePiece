@@ -34,7 +34,7 @@ class ExchangeView extends Component {
                     <div id="example-collapse-text" className="col-12">
                         {exchange.map(function (object, i) {
                             return (
-                                <a href={object.url}>
+                                <a href={object.url} target="_blank" >
                                     <Image className="exchange-logo" src={"/img/" + object.code + "-logo.png"}/>
                                 </a>
                             )

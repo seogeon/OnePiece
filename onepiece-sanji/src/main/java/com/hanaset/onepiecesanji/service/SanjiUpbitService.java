@@ -47,7 +47,7 @@ public class SanjiUpbitService {
                                         .title(upbitNoticeInfo.getTitle())
                                         .url("https://www.upbit.com/service_center/notice?id=" + upbitNoticeInfo.getId())
                                         .createdAt(ZonedDateTime.parse(upbitNoticeInfo.getCreatedAt()))
-                                        .updatedAt(ZonedDateTime.parse(upbitNoticeInfo.getUpdatedAt()))
+                                        .updatedAt(ZonedDateTime.parse(upbitNoticeInfo.getCreatedAt()))
                                         .build()
                         ).collect(Collectors.toList());
 

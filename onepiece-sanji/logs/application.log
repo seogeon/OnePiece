@@ -1,0 +1,2 @@
+2019-11-13 12:23:16.615 ERROR [           main] [c.h.o.s.SanjiOkexService] searchOkexEvent (63): Okex Notice search ERROR : [text=undefined jwt must be provided]
+2019-11-13 12:26:12.088 ERROR [           main] [c.h.o.s.SanjiOkexService] searchOkexEvent (63): Okex Notice search ERROR : [text=undefined jwt must be provided]

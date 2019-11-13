@@ -53,7 +53,7 @@ public class OnepieceSanjiApplicationTests {
     public void bithumb() {
         System.out.println("=========================================");
         sanjiBithumbParser.searchBithumbEvent();
-        sanjiBithumbParser.searchBithumbNotice();
+        //sanjiBithumbParser.searchBithumbNotice();
         System.out.println("=========================================");
     }
 

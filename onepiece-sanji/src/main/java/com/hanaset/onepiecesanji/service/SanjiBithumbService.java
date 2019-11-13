@@ -58,6 +58,7 @@ public class SanjiBithumbService {
                                     .title(element.select("[class=block-with-text]").text())
                                     .url("https://cafe.bithumb.com/view/board-contents/" + element.attributes().get("onclick").replaceAll("[^0-9]", ""))
                                     .createdAt(LocalDateTime.parse(element.text().replace(element.select("[class=block-with-text]").text() + " ", ""), dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
+                                    .updatedAt(LocalDateTime.parse(element.text().replace(element.select("[class=block-with-text]").text() + " ", ""), dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
                                     .build()
                     ).collect(Collectors.toList());
 
@@ -88,6 +89,9 @@ public class SanjiBithumbService {
                             .title(element.select("[class=one-line]").text())
                             .url("https://cafe.bithumb.com/view/board-contents/" + element.attributes().get("onclick").replaceAll("[^0-9]", ""))
                             .createdAt(LocalDateTime.parse(element.select("[class=small-size]").text().length() > 6 ?
+                                            element.select("[class=small-size]").text() + " 00:00:00" : ZonedDateTime.now().format(dateTimeFormatter)
+                                    , dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
+                            .updatedAt(LocalDateTime.parse(element.select("[class=small-size]").text().length() > 6 ?
                                             element.select("[class=small-size]").text() + " 00:00:00" : ZonedDateTime.now().format(dateTimeFormatter)
                                     , dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
                             .build()

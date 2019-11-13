@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class SanjiBitsonicService {
     }
 
     public void searchBitsonicEvent() {
-        try{
+        try {
             Connection.Response response = Jsoup.connect(sanjiUrlProperties.getBitsonicEventUrl() + "event").method(Connection.Method.GET).execute();
             Document bitsonicDocument = response.parse();
             BigDecimal standardId = noticeRepository.getMaxNoticeIdAndKind(NoticeExchange.BITSONIC.getExchange(), NoticeKind.EVENT.getKind()).orElse(BigDecimal.ZERO);
@@ -46,33 +45,34 @@ public class SanjiBitsonicService {
 
             List<Element> elements = bitsonicDocument.select("[class=notice-list-link]");
 
-            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0 )
+            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
                     .map(element ->
                             NoticeEntity.builder()
-                            .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))))
-                            .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITSONIC).build())
-                            .kind(NoticeKind.EVENT)
-                            .title(element.children().select("[class=notice-list-link-title]").text())
-                            .url("https://bitsonic.co.kr" + element.attr("href"))
-                            .createdAt(LocalDateTime.parse((element.children().select("[class=notice-list-date]").text() + "T00:00:00")).atZone(ZoneId.of("Asia/Seoul")))
-                            .build()
+                                    .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))))
+                                    .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITSONIC).build())
+                                    .kind(NoticeKind.EVENT)
+                                    .title(element.children().select("[class=notice-list-link-title]").text())
+                                    .url("https://bitsonic.co.kr" + element.attr("href"))
+                                    .createdAt(LocalDateTime.parse((element.children().select("[class=notice-list-date]").text() + "T00:00:00")).atZone(ZoneId.of("Asia/Seoul")))
+                                    .updatedAt(LocalDateTime.parse((element.children().select("[class=notice-list-date]").text() + "T00:00:00")).atZone(ZoneId.of("Asia/Seoul")))
+                                    .build()
                     ).collect(Collectors.toList());
 
             noticeRepository.saveAll(noticeEntities);
-        }catch (IOException e) {
+        } catch (IOException e) {
             log.error("Bitsonic Jsoup Parser IOException : {}", e.getMessage());
         }
     }
 
     public void searchBitsoicNotice() {
-        try{
+        try {
             Connection.Response response = Jsoup.connect(sanjiUrlProperties.getBitsonicEventUrl() + "notice").method(Connection.Method.GET).execute();
             BigDecimal standardId = noticeRepository.getMaxNoticeIdAndKind(NoticeExchange.BITSONIC.getExchange(), NoticeKind.NOTICE.getKind()).orElse(BigDecimal.ZERO);
             Document bitsonicDocument = response.parse();
             System.out.println(standardId.toPlainString());
 
             List<Element> elements = bitsonicDocument.select("[class=notice-list-link]");
-            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0 )
+            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
                     .map(element ->
                             NoticeEntity.builder()
                                     .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").replaceAll("[^0-9]", ""))))
@@ -81,11 +81,12 @@ public class SanjiBitsonicService {
                                     .title(element.children().select("[class=notice-list-link-title]").text())
                                     .url("https://bitsonic.co.kr" + element.attr("href"))
                                     .createdAt(LocalDateTime.parse((element.children().select("[class=notice-list-date]").text() + "T00:00:00")).atZone(ZoneId.of("Asia/Seoul")))
+                                    .updatedAt(LocalDateTime.parse((element.children().select("[class=notice-list-date]").text() + "T00:00:00")).atZone(ZoneId.of("Asia/Seoul")))
                                     .build()
                     ).collect(Collectors.toList());
 
             noticeRepository.saveAll(noticeEntities);
-        }catch (IOException e) {
+        } catch (IOException e) {
             log.error("Bitsonic Jsoup Parser IOException : {}", e.getMessage());
         }
     }

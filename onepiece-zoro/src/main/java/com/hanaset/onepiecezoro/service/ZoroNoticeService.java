@@ -138,11 +138,11 @@ public class ZoroNoticeService {
 
         if (exchange.equals(NoticeExchange.ALL)) {
             noticeItems = NoticeCache.noticeList.stream()
-                    .filter(noticeItem -> noticeItem.getTitle().contains(keyword))
+                    .filter(noticeItem -> noticeItem.getTitle().toUpperCase().contains(keyword.toUpperCase()))
                     .collect(Collectors.toList());
         } else {
             noticeItems = NoticeCache.noticeList.stream()
-                    .filter(noticeItem -> noticeItem.getExchange().equals(exchange) && noticeItem.getTitle().contains(keyword))
+                    .filter(noticeItem -> noticeItem.getExchange().equals(exchange) && noticeItem.getTitle().toUpperCase().contains(keyword.toUpperCase()))
                     .collect(Collectors.toList());
         }
 
