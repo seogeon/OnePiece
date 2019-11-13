@@ -5,6 +5,8 @@ import com.hanaset.onepiececommon.entity.NoticeEntity;
 import com.hanaset.onepiececommon.model.NoticeExchange;
 import com.hanaset.onepiececommon.model.NoticeKind;
 import com.hanaset.onepiececommon.repository.NoticeRepository;
+import com.hanaset.onepiecesanji.client.okex.SanjiOkexRestApiClient;
+import com.hanaset.onepiecesanji.client.okex.model.OkexNoticeInfo;
 import com.hanaset.onepiecesanji.properties.SanjiUrlProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
@@ -12,9 +14,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,37 +30,74 @@ public class SanjiOkexService {
 
     private final SanjiUrlProperties sanjiUrlProperties;
     private final NoticeRepository noticeRepository;
+    private final SanjiOkexRestApiClient sanjiOkexRestApiClient;
 
     public SanjiOkexService(SanjiUrlProperties sanjiUrlProperties,
-                            NoticeRepository noticeRepository) {
+                            NoticeRepository noticeRepository,
+                            SanjiOkexRestApiClient sanjiOkexRestApiClient) {
         this.sanjiUrlProperties = sanjiUrlProperties;
         this.noticeRepository = noticeRepository;
+        this.sanjiOkexRestApiClient = sanjiOkexRestApiClient;
     }
 
+//    public void searchOkexEvent() {
+//        try {
+//            Connection.Response response = Jsoup.connect(sanjiUrlProperties.getOkexEventUrl()).method(Connection.Method.GET).execute();
+//            Document bithumbDocument = response.parse();
+//
+//            List<Element> elements = bithumbDocument.select("[class=article-list-link]");
+//
+//            BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.OKEX.getExchange()).orElse(BigDecimal.ZERO);
+//            System.out.println(standardId.toPlainString());
+//            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
+//                    .map(element ->
+//                        NoticeEntity.builder()
+//                                .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))))
+//                                .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.OKEX).build())
+//                                .title(element.text())
+//                                .kind(element.text().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
+//                                .url("https://support.okex.co.kr/hc/ko/articles/" + element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))
+//                                .build()
+//                    ).collect(Collectors.toList());
+//
+//            //System.out.println(noticeEntities);
+//            noticeRepository.saveAll(noticeEntities);
+//        }catch (IOException e) {
+//            log.error("Okex Jsoup Parser IOException : {}", e.getMessage());
+//        }
+//    }
+
     public void searchOkexEvent() {
+
+        BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.OKEX.getExchange()).orElse(BigDecimal.ZERO);
+        System.out.println(standardId.toPlainString());
+
         try {
-            Connection.Response response = Jsoup.connect(sanjiUrlProperties.getOkexEventUrl()).method(Connection.Method.GET).execute();
-            Document bithumbDocument = response.parse();
+            Response<List<OkexNoticeInfo>> response = sanjiOkexRestApiClient.getNotice().execute();
 
-            List<Element> elements = bithumbDocument.select("[class=article-list-link]");
+            if(response.isSuccessful()) {
 
-            BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.OKEX.getExchange()).orElse(BigDecimal.ZERO);
-            System.out.println(standardId.toPlainString());
-            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
-                    .map(element ->
-                        NoticeEntity.builder()
-                                .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))))
-                                .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.OKEX).build())
-                                .title(element.text())
-                                .kind(element.text().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
-                                .url("https://support.okex.co.kr/hc/ko/articles/" + element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))
-                                .build()
-                    ).collect(Collectors.toList());
+                List<NoticeEntity> entityList = response.body().stream().filter(okexNoticeInfo -> BigDecimal.valueOf(Long.parseLong(okexNoticeInfo.getUrl().replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
+                        .map(okexNoticeInfo ->
+                                NoticeEntity.builder()
+                                        .noticeId(BigDecimal.valueOf(Long.parseLong(okexNoticeInfo.getUrl().replaceAll("[^0-9]", ""))))
+                                        .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.OKEX).build())
+                                        .kind(okexNoticeInfo.getTitle().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
+                                        .createdAt(ZonedDateTime.parse(okexNoticeInfo.getCreateTime()))
+                                        .updatedAt(ZonedDateTime.parse(okexNoticeInfo.getUpdateTime()))
+                                        .title(okexNoticeInfo.getTitle())
+                                        .url(okexNoticeInfo.getUrl())
+                                        .build()
+                        ).collect(Collectors.toList());
 
-            //System.out.println(noticeEntities);
-            noticeRepository.saveAll(noticeEntities);
-        }catch (IOException e) {
-            log.error("Okex Jsoup Parser IOException : {}", e.getMessage());
+//                System.out.println(entityList);
+                noticeRepository.saveAll(entityList);
+
+            } else {
+                log.error("Okex Notice search ERROR : {}", response.errorBody().byteString().toString());
+            }
+        } catch (IOException e) {
+            log.error("Okex Notice search IOException : {}", e.getMessage());
         }
     }
 }

@@ -44,6 +44,9 @@ public class OnepieceSanjiApplicationTests {
     @Autowired
     private SanjiHuobiService sanjiHuobiService;
 
+    @Autowired
+    private SanjiCoinoneService sanjiCoinoneService;
+
 
     @Test
     public void upbit() {
@@ -71,6 +74,7 @@ public class OnepieceSanjiApplicationTests {
     public void okex() {
         System.out.println("=========================================");
         sanjiOkexService.searchOkexEvent();
+//        sanjiOkexService.test();
         System.out.println("=========================================");
     }
 
@@ -88,4 +92,12 @@ public class OnepieceSanjiApplicationTests {
         sanjiHuobiService.searchHuobiEvent();
         System.out.println("=========================================");
     }
+
+    @Test
+    public void coinone() {
+        System.out.println("=========================================");
+        sanjiCoinoneService.searchCoinoneEvent();
+        System.out.println("=========================================");
+    }
+
 }

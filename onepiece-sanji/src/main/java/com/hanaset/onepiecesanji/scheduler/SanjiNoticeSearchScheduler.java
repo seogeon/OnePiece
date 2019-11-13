@@ -1,9 +1,6 @@
 package com.hanaset.onepiecesanji.scheduler;
 
-import com.hanaset.onepiecesanji.service.SanjiBithumbService;
-import com.hanaset.onepiecesanji.service.SanjiGdacService;
-import com.hanaset.onepiecesanji.service.SanjiOkexService;
-import com.hanaset.onepiecesanji.service.SanjiUpbitService;
+import com.hanaset.onepiecesanji.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,24 +18,42 @@ public class SanjiNoticeSearchScheduler {
     private final SanjiBithumbService sanjiBithumbService;
     private final SanjiGdacService sanjiGdacService;
     private final SanjiOkexService sanjiOkexService;
+    private final SanjiCoinoneService sanjiCoinoneService;
+    private final SanjiBitsonicService sanjiBitsonicService;
+    private final SanjiHuobiService sanjiHuobiService;
 
     public SanjiNoticeSearchScheduler(SanjiUpbitService sanjiUpbitService,
                                       SanjiBithumbService sanjiBithumbService,
                                       SanjiGdacService sanjiGdacService,
-                                      SanjiOkexService sanjiOkexService) {
+                                      SanjiOkexService sanjiOkexService,
+                                      SanjiCoinoneService sanjiCoinoneService,
+                                      SanjiBitsonicService sanjiBitsonicService,
+                                      SanjiHuobiService sanjiHuobiService) {
         this.sanjiUpbitService = sanjiUpbitService;
         this.sanjiBithumbService = sanjiBithumbService;
         this.sanjiGdacService = sanjiGdacService;
         this.sanjiOkexService = sanjiOkexService;
+        this.sanjiCoinoneService = sanjiCoinoneService;
+        this.sanjiBitsonicService = sanjiBitsonicService;
+        this.sanjiHuobiService = sanjiHuobiService;
     }
 
     @Scheduled(cron = "0 5 */1 * * *", zone = "Asia/Seoul")
     public void searchNotice() {
         sanjiUpbitService.searchUpbit();
+
         sanjiBithumbService.searchBithumbEvent();
         sanjiBithumbService.searchBithumbNotice();
+
         sanjiGdacService.searchGdacEvent();
         sanjiOkexService.searchOkexEvent();
+
+        sanjiCoinoneService.searchCoinoneEvent();
+
+        sanjiBitsonicService.searchBitsoicNotice();
+        sanjiBitsonicService.searchBitsonicEvent();
+
+        sanjiHuobiService.searchHuobiEvent();
 
         log.info("{} 데이터 Searching", ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
     }

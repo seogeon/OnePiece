@@ -1,7 +1,9 @@
 package com.hanaset.onepiecesanji.client;
 
+import com.hanaset.onepiecesanji.client.coinone.SanjiCoinoneRestApiClient;
 import com.hanaset.onepiecesanji.client.gdac.SanjiGdacRestApiClient;
 import com.hanaset.onepiecesanji.client.huobi.SanjiHuobiRestApiClient;
+import com.hanaset.onepiecesanji.client.okex.SanjiOkexRestApiClient;
 import com.hanaset.onepiecesanji.client.upbit.SanjiUpbitRestApiClient;
 import com.hanaset.onepiecesanji.properties.SanjiUrlProperties;
 import lombok.Data;
@@ -32,4 +34,10 @@ public class RestApiClient {
 
     @Bean
     public SanjiHuobiRestApiClient SanjiHuobiRestApiClient() { return new SanjiHuobiRestApiClient(sanjiUrlProperties);}
+
+    @Bean
+    public SanjiOkexRestApiClient SanjiOkexRestApiClient() { return new SanjiOkexRestApiClient(sanjiUrlProperties);}
+
+    @Bean
+    public SanjiCoinoneRestApiClient SanjiCoinoneRestApiClient() { return new SanjiCoinoneRestApiClient(sanjiUrlProperties);}
 }

@@ -8,8 +8,11 @@
 #GET http://i1.coinone.co.kr/api/talk/notice/?page=1&searchWord=&searchType=&ordering=-created_at
 #Accept: application/json
 
-GET https://www.huobi.co.kr/-/g/open/v1/notice/list?r=534410596
+GET https://i1.coinone.co.kr/api/talk/notice/?page=1&searchWord=&searchType=&ordering=-created_at
 Accept: application/json
-Accept-Language: ko-KR
+origin: https://coinone.co.kr
+referer: https://coinone.co.kr/
+sec-fetch-mode: cors
+sec-fetch-site: same-site
 
 ###

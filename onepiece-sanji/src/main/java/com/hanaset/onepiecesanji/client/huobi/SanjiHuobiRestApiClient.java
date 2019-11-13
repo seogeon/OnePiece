@@ -26,6 +26,6 @@ public class SanjiHuobiRestApiClient {
     }
 
     public Call<HuobitResponse> getNotice() {
-        return sanjiHuobiRestApiService.getNotice("ko-KR");
+        return sanjiHuobiRestApiService.getNotice();
     }
 }

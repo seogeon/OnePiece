@@ -7,7 +7,8 @@ public enum  NoticeExchange {
     GDAC("GDAC"),
     OKEX("OKEX"),
     BITSONIC("BITSONIC"),
-    HUOBI("HUOBI");
+    HUOBI("HUOBI"),
+    COINONE("COINCONE");
 
     String exchange;
 

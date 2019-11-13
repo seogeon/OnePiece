@@ -1,2 +1,3 @@
 2019-11-13 12:23:16.615 ERROR [           main] [c.h.o.s.SanjiOkexService] searchOkexEvent (63): Okex Notice search ERROR : [text=undefined jwt must be provided]
 2019-11-13 12:26:12.088 ERROR [           main] [c.h.o.s.SanjiOkexService] searchOkexEvent (63): Okex Notice search ERROR : [text=undefined jwt must be provided]
+2019-11-13 17:59:28.062 ERROR [           main] [o.h.i.ExceptionMapperStandardImpl] mapManagedFlushFailure (39): HHH000346: Error during managed flush [org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : com.hanaset.onepiececommon.entity.NoticeEntity.exchangeCode -> com.hanaset.onepiececommon.entity.ExchangeEntity]
