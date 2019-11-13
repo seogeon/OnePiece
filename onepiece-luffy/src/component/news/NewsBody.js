@@ -3,6 +3,7 @@ import './News.css';
 import NoticeApi from '../../service/NoticeApi'
 import ListGroup from "react-bootstrap/esm/ListGroup";
 import Badge from "react-bootstrap/Badge";
+import Image from "react-bootstrap/esm/Image";
 
 class NewsBody extends Component {
 
@@ -45,8 +46,8 @@ class NewsBody extends Component {
                         return (
                             <ListGroup.Item className="news-list-item" key={object.id} action href={object.url} target="_blank">
                                 <div className='row'>
-                                    <div className='col-3 news-exchange'>{object.exchange}</div>
-                                    <div className='col-9 news-title'>{object.title} <Badge variant="info">New</Badge></div>
+                                    <div className='col-3 news-exchange'><Image className="news-exchange-img" src={"/img/" + object.exchange + "-logo.png"}/></div>
+                                    <div className='col-9 news-title'><Badge variant="info">New</Badge> {object.title}</div>
                                 </div>
                             </ListGroup.Item>
                         )
@@ -55,7 +56,7 @@ class NewsBody extends Component {
                             <ListGroup.Item className="news-list-item" key={object.id} action href={object.url}
                                             target="_blank">
                                 <div className='row'>
-                                    <div className='col-3 news-exchange'>{object.exchange}</div>
+                                    <div className='col-3 news-exchange'><Image className="news-exchange-img" src={"/img/" + object.exchange + "-logo.png"}/></div>
                                     <div className='col-9 news-title'>{object.title}</div>
                                 </div>
                             </ListGroup.Item>

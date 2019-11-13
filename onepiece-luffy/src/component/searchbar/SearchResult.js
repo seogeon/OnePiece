@@ -4,6 +4,7 @@ import Pagination from "react-bootstrap/Pagination";
 import NoticeApi from "../../service/NoticeApi"
 import Badge from "react-bootstrap/Badge";
 import './SearchBar.css';
+import Image from "react-bootstrap/Image";
 
 class SearchResult extends Component {
 
@@ -128,15 +129,17 @@ class SearchResult extends Component {
                             if(today === object.updatedAt.split("T")[0]) {
                                 return (
                                     <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
-                                        <td className="notice-exchange">{object.exchange}</td>
-                                        <td className="notice-title">{object.title} <Badge variant="info">New</Badge></td>
+                                        {/*<td className="notice-exchange">{object.exchange}</td>*/}
+                                        <td className="notice-exchange" ><Image className="notice-exchange-img" src={"/img/" + object.exchange + "-logo.png"}/></td>
+                                        <td className="notice-title"><Badge variant="info">New</Badge> {object.title}</td>
                                         <td>{object.updatedAt.split("T")[0]}</td>
                                     </tr>
                                 )
                             }else {
                                 return (
                                     <tr key={i} className="notice-item" onClick={() => window.open(object.url)}>
-                                        <td className="notice-exchange">{object.exchange}</td>
+                                        {/*<td className="notice-exchange">{object.exchange}</td>*/}
+                                        <td className="notice-exchange" ><Image className="notice-exchange-img" src={"/img/" + object.exchange + "-logo.png"}/></td>
                                         <td className="notice-title">{object.title}</td>
                                         <td>{object.updatedAt.split("T")[0]}</td>
                                     </tr>

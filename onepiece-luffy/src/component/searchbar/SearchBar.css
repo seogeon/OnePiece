@@ -33,6 +33,10 @@
 
 .notice-title {
     width: 60%;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    /*max-width: 60%;*/
 }
 
 #notice-table {
@@ -56,5 +60,9 @@
 
 .exchange-logo:hover {
     background: rgba(4, 26, 55, 0.15);
+}
+
+.notice-exchange-img {
+    height: 20px;
 }
 
