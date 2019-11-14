@@ -33,7 +33,20 @@ class SearchBar extends Component {
     };
 
     change(e) {
-        this.setState({exchange: e.target.value})
+         this.setState({exchange: e.target.value});
+
+        if(!this.regExCheck(this.keyword)) {
+            NoticeApi.searchNotice(e.target.value, this.keyword, 0).then(value => {
+                if (value.data.code === '0') {
+                    this.setState({
+                        list: value.data.data
+                    });
+                    //   console.log(this.state.list);
+                }
+            })
+        }else {
+            alert("특수 문자는 검색이 안됩니다.")
+        }
     }
 
 
