@@ -47,6 +47,8 @@ public class OnepieceSanjiApplicationTests {
     @Autowired
     private SanjiCoinoneService sanjiCoinoneService;
 
+    @Autowired
+    private SanjiBinanaceService sanjiBinanaceService;
 
     @Test
     public void upbit() {
@@ -100,4 +102,10 @@ public class OnepieceSanjiApplicationTests {
         System.out.println("=========================================");
     }
 
+    @Test
+    public void binance() {
+        System.out.println("=========================================");
+        sanjiBinanaceService.searchBinanceEvent();
+        System.out.println("=========================================");
+    }
 }
