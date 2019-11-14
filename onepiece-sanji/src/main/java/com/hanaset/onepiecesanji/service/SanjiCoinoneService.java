@@ -49,7 +49,7 @@ public class SanjiCoinoneService {
                                         .createdAt(ZonedDateTime.parse(coinoneNoticeInfo.getCreatedAt()))
                                         .updatedAt(ZonedDateTime.parse(coinoneNoticeInfo.getUpdatedAt()))
                                         .title(coinoneNoticeInfo.getTitle())
-                                        .url("https://coinone.co.kr/" + coinoneNoticeInfo.getGetAbsoluteUrl())
+                                        .url("https://coinone.co.kr" + coinoneNoticeInfo.getGetAbsoluteUrl())
                                         .build()
                         ).collect(Collectors.toList());
 

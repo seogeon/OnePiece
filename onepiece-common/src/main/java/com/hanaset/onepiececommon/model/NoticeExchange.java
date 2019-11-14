@@ -8,7 +8,7 @@ public enum  NoticeExchange {
     OKEX("OKEX"),
     BITSONIC("BITSONIC"),
     HUOBI("HUOBI"),
-    COINONE("COINCONE");
+    COINONE("COINONE");
 
     String exchange;
 
