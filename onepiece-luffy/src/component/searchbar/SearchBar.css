@@ -45,6 +45,7 @@ td {
 
 .notice-title {
     width: 60%;
+    text-align: left;
 }
 
 #notice-table {

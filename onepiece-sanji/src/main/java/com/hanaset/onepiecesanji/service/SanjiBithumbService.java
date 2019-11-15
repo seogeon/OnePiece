@@ -35,46 +35,13 @@ public class SanjiBithumbService {
         this.noticeRepository = noticeRepository;
     }
 
-
-    public void searchBithumbEvent() {
-        try {
-            Connection.Response response = Jsoup.connect(sanjiUrlProperties.getBithumbEventUrl() + "/40").method(Connection.Method.GET).execute();
-            Document bithumbDocument = response.parse();
-
-            List<Element> elements = bithumbDocument.select("[class=inner-container]");
-            BigDecimal standardId = noticeRepository.getMaxNoticeIdAndKind(NoticeExchange.BITHUMB.getExchange(), NoticeKind.EVENT.getKind()).orElse(BigDecimal.ZERO);
-
-            System.out.println(standardId.toPlainString());
-
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
-
-            List<NoticeEntity> noticeEntities = elements.stream().filter(element ->
-                    BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
-                    .map(element ->
-                            NoticeEntity.builder()
-                                    .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITHUMB).build())
-                                    .noticeId(BigDecimal.valueOf(Long.parseLong(element.attributes().get("onclick").replaceAll("[^0-9]", ""))))
-                                    .kind(NoticeKind.EVENT)
-                                    .title(element.select("[class=block-with-text]").text())
-                                    .url("https://cafe.bithumb.com/view/board-contents/" + element.attributes().get("onclick").replaceAll("[^0-9]", ""))
-                                    .createdAt(LocalDateTime.parse(element.text().replace(element.select("[class=block-with-text]").text() + " ", ""), dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
-                                    .updatedAt(LocalDateTime.parse(element.text().replace(element.select("[class=block-with-text]").text() + " ", ""), dateTimeFormatter).atZone(ZoneId.of("Asia/Seoul")))
-                                    .build()
-                    ).collect(Collectors.toList());
-
-            noticeRepository.saveAll(noticeEntities);
-        } catch (IOException e) {
-            log.error("Bithumb Jsoup Parser IOException : {}", e.getMessage());
-        }
-    }
-
     public void searchBithumbNotice() {
         try {
             Connection.Response response = Jsoup.connect(sanjiUrlProperties.getBithumbEventUrl() + "/43").method(Connection.Method.GET).execute();
             Document bithumbDocument = response.parse();
 
             List<Element> elements = bithumbDocument.select("[class=col-20 col-md-3]");
-            BigDecimal standardId = noticeRepository.getMaxNoticeIdAndKind(NoticeExchange.BITHUMB.getExchange(), NoticeKind.NOTICE.getKind()).orElse(BigDecimal.ZERO);
+            BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.BITHUMB.getExchange()).orElse(BigDecimal.ZERO);
 
             System.out.println(standardId.toPlainString());
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");

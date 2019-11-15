@@ -42,7 +42,6 @@ public class SanjiNoticeSearchScheduler {
     public void searchNotice() {
         sanjiUpbitService.searchUpbit();
 
-        sanjiBithumbService.searchBithumbEvent();
         sanjiBithumbService.searchBithumbNotice();
 
         sanjiGdacService.searchGdacEvent();

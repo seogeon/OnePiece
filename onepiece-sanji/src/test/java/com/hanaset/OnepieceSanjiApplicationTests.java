@@ -60,8 +60,8 @@ public class OnepieceSanjiApplicationTests {
     @Test
     public void bithumb() {
         System.out.println("=========================================");
-        sanjiBithumbParser.searchBithumbEvent();
-        //sanjiBithumbParser.searchBithumbNotice();
+        //sanjiBithumbParser.searchBithumbEvent();
+        sanjiBithumbParser.searchBithumbNotice();
         System.out.println("=========================================");
     }
 

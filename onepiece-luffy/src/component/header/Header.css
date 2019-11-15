@@ -1,0 +1,23 @@
+#first-page-logo {
+    width: 10%;
+}
+
+#first-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+}
+
+#first-site-name {
+    margin: 0 auto;
+    flex: 1;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    font-size: 2vw;
+    color: rgba(0,0,0,0.7);
+    text-shadow: 4px 4px 4px gray;
+    font-family: Gugi;
+}
