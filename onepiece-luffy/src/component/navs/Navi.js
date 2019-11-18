@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Navi.css'
-import NoticeApi from '../../service/NoticeApi'
+import {Link} from "react-router-dom";
 
 
 class Navi extends Component {
@@ -11,7 +11,6 @@ class Navi extends Component {
             menu: 'home',
             exchange: ''
         }
-        this.getExchange();
     }
 
     menu = {
@@ -22,28 +21,20 @@ class Navi extends Component {
 
     keys = Object.keys(this.menu);
 
-    getExchange() {
-        NoticeApi.getExchangeList().then(value => {
-            if (value.data.code === '0') {
-                this.setState({
-                    exchange: value.data.data
-                });
-            }
-        });
-
-    }
-
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
             menu: nextProps.menu
         })
-        this.getExchange();
+    }
+
+    onClick(menu) {
+        this.setState({
+                menu
+            }
+        )
     }
 
     render() {
-
-        console.log(this.state.exchange);
-
         return (
             <div>
                 <div id="navi" className="row">
@@ -54,7 +45,7 @@ class Navi extends Component {
                             if (value === this.state.menu) {
                                 className += '-select';
                             }
-                            return <a className={className} href="#home">{this.menu[value]}</a>
+                            return <Link className={className} to={value} onClick={()=>this.onClick(value)}>{this.menu[value]}</Link>
                         })
                     }
                 </div>

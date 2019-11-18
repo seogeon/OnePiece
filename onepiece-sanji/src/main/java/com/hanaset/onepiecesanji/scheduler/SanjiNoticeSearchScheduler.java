@@ -22,13 +22,16 @@ public class SanjiNoticeSearchScheduler {
     private final SanjiBitsonicService sanjiBitsonicService;
     private final SanjiHuobiService sanjiHuobiService;
 
+    private final SanjiBinanaceService sanjiBinanaceService;
+
     public SanjiNoticeSearchScheduler(SanjiUpbitService sanjiUpbitService,
                                       SanjiBithumbService sanjiBithumbService,
                                       SanjiGdacService sanjiGdacService,
                                       SanjiOkexService sanjiOkexService,
                                       SanjiCoinoneService sanjiCoinoneService,
                                       SanjiBitsonicService sanjiBitsonicService,
-                                      SanjiHuobiService sanjiHuobiService) {
+                                      SanjiHuobiService sanjiHuobiService,
+                                      SanjiBinanaceService sanjiBinanaceService) {
         this.sanjiUpbitService = sanjiUpbitService;
         this.sanjiBithumbService = sanjiBithumbService;
         this.sanjiGdacService = sanjiGdacService;
@@ -36,6 +39,7 @@ public class SanjiNoticeSearchScheduler {
         this.sanjiCoinoneService = sanjiCoinoneService;
         this.sanjiBitsonicService = sanjiBitsonicService;
         this.sanjiHuobiService = sanjiHuobiService;
+        this.sanjiBinanaceService = sanjiBinanaceService;
     }
 
     @Scheduled(cron = "0 5 */1 * * *", zone = "Asia/Seoul")
@@ -53,6 +57,8 @@ public class SanjiNoticeSearchScheduler {
         sanjiBitsonicService.searchBitsonicEvent();
 
         sanjiHuobiService.searchHuobiEvent();
+
+        sanjiBinanaceService.searchBinanceEvent();
 
         log.info("{} 데이터 Searching", ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
     }
