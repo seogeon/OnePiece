@@ -24,6 +24,7 @@ class SearchBar extends Component {
             list: null,
             keyword: null
         }
+        this.onClickButton();
     }
 
     keyword = '';
@@ -107,6 +108,9 @@ class SearchBar extends Component {
 
             return (
                 <div className="col-12">
+                    <div>
+                        <SearchResult data={ this.state.list === null ? '0' : this.state.list } keyword={this.keyword} exchange={this.state.exchange}/>
+                    </div>
                     <ExchangeView exchange={this.state}/>
                     <div className="row">
                         <Form.Group id="search-bar">
@@ -124,9 +128,6 @@ class SearchBar extends Component {
                                     onClick={() => this.onClickButton()}>검
                                 색</Button>
                         </Form.Group>
-                    </div>
-                    <div>
-                        <SearchResult data={ this.state.list === null ? '0' : this.state.list } keyword={this.keyword} exchange={this.state.exchange}/>
                     </div>
                 </div>
             )
