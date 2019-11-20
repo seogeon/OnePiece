@@ -7,14 +7,10 @@
 
 
 
-
--2019. 11. 12-
-
-okex, bitsonic 추가
-
--2019. 11. 06-
-
-업비트, 빗썸, 지닥 추가
+okex, bitsonic,
+업비트, 빗썸, 지닥,
+Coinone, Binance, Bitfinex
+추가
 
 
 ### Zoro 조로
@@ -29,6 +25,14 @@ notice list / exchange list API 구현
 
 ### Luffy 루피
 프론트 서버 React로 구현
+
+
+
+-2019. 11. 19-
+
+홈, 공지사항, 이벤트 페이지 분리
+
+
 
 -2019. 11. 12-
 
