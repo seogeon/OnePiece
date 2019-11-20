@@ -60,7 +60,7 @@ public class SanjiBitfinexService {
                             .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.BITFINEX).build())
                             .noticeId(BigDecimal.valueOf(Long.parseLong(noticeElements.get(i).attr("href").replaceAll("[^0-9]", ""))))
                             .title(noticeElements.get(i).text())
-                            .kind(NoticeKind.NOTICE)
+                            .kind(noticeElements.get(i).text().toUpperCase().contains("EVENT") || noticeElements.get(i).text().toUpperCase().contains("AIRDROP") ? NoticeKind.EVENT : NoticeKind.NOTICE)
                             .url("https://www.bitfinex.com" + noticeElements.get(i).attr("href"))
                             .createdAt(LocalDate.parse(dateElements.get(i).text(), dateTimeFormatter).atStartOfDay(ZoneId.of("Asia/Seoul")))
                             .updatedAt(LocalDate.parse(dateElements.get(i).text(), dateTimeFormatter).atStartOfDay(ZoneId.of("Asia/Seoul")))

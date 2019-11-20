@@ -40,33 +40,6 @@ public class SanjiOkexService {
         this.sanjiOkexRestApiClient = sanjiOkexRestApiClient;
     }
 
-//    public void searchOkexEvent() {
-//        try {
-//            Connection.Response response = Jsoup.connect(sanjiUrlProperties.getOkexEventUrl()).method(Connection.Method.GET).execute();
-//            Document bithumbDocument = response.parse();
-//
-//            List<Element> elements = bithumbDocument.select("[class=article-list-link]");
-//
-//            BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.OKEX.getExchange()).orElse(BigDecimal.ZERO);
-//            System.out.println(standardId.toPlainString());
-//            List<NoticeEntity> noticeEntities = elements.stream().filter(element -> BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))).compareTo(standardId) > 0)
-//                    .map(element ->
-//                        NoticeEntity.builder()
-//                                .noticeId(BigDecimal.valueOf(Long.parseLong(element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))))
-//                                .exchangeCode(ExchangeEntity.builder().code(NoticeExchange.OKEX).build())
-//                                .title(element.text())
-//                                .kind(element.text().contains("이벤트") ? NoticeKind.EVENT : NoticeKind.NOTICE)
-//                                .url("https://support.okex.co.kr/hc/ko/articles/" + element.attr("href").split("--")[0].replaceAll("[^0-9]", ""))
-//                                .build()
-//                    ).collect(Collectors.toList());
-//
-//            //System.out.println(noticeEntities);
-//            noticeRepository.saveAll(noticeEntities);
-//        }catch (IOException e) {
-//            log.error("Okex Jsoup Parser IOException : {}", e.getMessage());
-//        }
-//    }
-
     public void searchOkexEvent() {
 
         BigDecimal standardId = noticeRepository.getMaxNoticeId(NoticeExchange.OKEX.getExchange()).orElse(BigDecimal.ZERO);

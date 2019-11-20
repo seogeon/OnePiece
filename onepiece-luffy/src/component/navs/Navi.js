@@ -15,8 +15,8 @@ class Navi extends Component {
 
     menu = {
         'home': '홈',
-        'news': '최신 정보',
-        'airdrop': '에어드랍 이벤트'
+        'notice': '공지사항',
+        'event': '이벤트'
     };
 
     keys = Object.keys(this.menu);

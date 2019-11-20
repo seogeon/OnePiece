@@ -25,11 +25,11 @@ public class ZoroNoticeRestApi extends ZoroApiRestSupport {
         this.zoroExchangeService = zoroExchangeService;
     }
 
-    @GetMapping("/{exchange}/{kind}")
-    public ResponseEntity findNotice(@PathVariable NoticeExchange exchange, @PathVariable NoticeKind kind,
+    @GetMapping("/{exchange}")
+    public ResponseEntity findNotice(@PathVariable NoticeExchange exchange, @RequestParam NoticeKind kind, @RequestParam String keyword,
                                      @PageableDefault(size = 10)
                                      @SortDefault.SortDefaults({@SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
-        return response(zoroNoticeService.findNotices(exchange, kind, pageable));
+        return response(zoroNoticeService.findNotices(exchange, kind, keyword, pageable));
     }
 
     @GetMapping
@@ -42,13 +42,6 @@ public class ZoroNoticeRestApi extends ZoroApiRestSupport {
     @GetMapping("/exchange_list")
     public ResponseEntity findExchangeList() {
         return response(zoroExchangeService.getExchangeList());
-    }
-
-    @GetMapping("/{exchange}")
-    public ResponseEntity searchKeyword(@PathVariable NoticeExchange exchange, @RequestParam String keyword,
-                                        @PageableDefault(size = 10)
-                                        @SortDefault.SortDefaults({@SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
-        return response(zoroNoticeService.searchKeyword(exchange, keyword, pageable));
     }
 }
 

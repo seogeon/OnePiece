@@ -37,7 +37,7 @@ class SearchBar extends Component {
          this.setState({exchange: e.target.value});
 
         if(!this.regExCheck(this.keyword)) {
-            NoticeApi.searchNotice(e.target.value, this.keyword, 0).then(value => {
+            NoticeApi.searchNotice(e.target.value, this.props.notice ,this.keyword, 0).then(value => {
                 if (value.data.code === '0') {
                     this.setState({
                         list: value.data.data
@@ -68,7 +68,7 @@ class SearchBar extends Component {
 
 
             if(!this.regExCheck(this.keyword)) {
-                NoticeApi.searchNotice(this.state.exchange, this.keyword, 0).then(value => {
+                NoticeApi.searchNotice(this.state.exchange, this.props.notice, this.keyword, 0).then(value => {
                     if (value.data.code === '0') {
                         this.setState({
                             list: value.data.data
@@ -86,7 +86,7 @@ class SearchBar extends Component {
     onClickButton() {
 
         if(!this.regExCheck(this.keyword)) {
-            NoticeApi.searchNotice(this.state.exchange, this.keyword, 0).then(value => {
+            NoticeApi.searchNotice(this.state.exchange, this.props.notice, this.keyword, 0).then(value => {
                 if (value.data.code === '0') {
                     this.setState({
                         list: value.data.data
@@ -109,7 +109,7 @@ class SearchBar extends Component {
             return (
                 <div className="col-12">
                     <div>
-                        <SearchResult data={ this.state.list === null ? '0' : this.state.list } keyword={this.keyword} exchange={this.state.exchange}/>
+                        <SearchResult data={ this.state.list === null ? '0' : this.state.list } keyword={this.keyword} exchange={this.state.exchange} notice={this.props.notice}/>
                     </div>
                     <ExchangeView exchange={this.state}/>
                     <div className="row">

@@ -34,10 +34,25 @@ class NoticeApi {
         return response;
     }
 
-    static async searchNotice(exchange, keyword, page) {
+    static async searchNotice(exchange, kind, keyword, page) {
 
         let response =
-            await axios.get(this.api + "/notice/" + exchange + "?keyword=" + keyword + "&page=" + page)
+            await axios.get(this.api + "/notice/" + exchange + "?keyword=" + keyword + "&page=" + page + "&kind=" + kind)
+
+                .then(response => {
+                    // console.log(response);
+                    return response;
+                })
+                .catch(response => {
+                    return response;
+                })
+        return response;
+    }
+
+    static async searchEvent(exchange, keyword, page) {
+
+        let response =
+            await axios.get(this.api + "/notice/event/" + exchange + "?keyword=" + keyword + "&page=" + page)
 
                 .then(response => {
                     // console.log(response);

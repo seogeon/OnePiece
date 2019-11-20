@@ -1,12 +1,13 @@
 import React from 'react';
 import SearchBar from "../searchbar/SearchBar";
 
-function NewsPage() {
+function EventPage() {
     return (
         <div className="row">
-            <SearchBar notice="NOTICE"/>
+            <SearchBar notice="EVENT"/>
         </div>
-    );
+    )
+
 }
 
-export default NewsPage;
+export default EventPage

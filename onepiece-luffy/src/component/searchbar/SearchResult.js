@@ -26,7 +26,7 @@ class SearchResult extends Component {
 
 
     onClickPageButton(page) {
-        NoticeApi.searchNotice(this.props.exchange, this.props.keyword, page).then(value => {
+        NoticeApi.searchNotice(this.props.exchange, this.props.notice, this.props.keyword, page).then(value => {
             this.pageActive = page;
 
             if (value.data.code === '0') {

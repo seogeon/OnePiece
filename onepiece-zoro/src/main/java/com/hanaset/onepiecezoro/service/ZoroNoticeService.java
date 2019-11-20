@@ -28,18 +28,20 @@ public class ZoroNoticeService {
         this.zoroCacheLoadService = zoroCacheLoadService;
     }
 
-    public NoticePageResponse findNotices(NoticeExchange exchange, NoticeKind kind, Pageable pageable) {
+    public NoticePageResponse findNotices(NoticeExchange exchange, NoticeKind kind, String keyword, Pageable pageable) {
 
         List<NoticeItem> noticeItems;
 
-        if (exchange == NoticeExchange.ALL && kind == NoticeKind.ALL) {
-            noticeItems = NoticeCache.noticeList;
-        } else if (exchange != NoticeExchange.ALL && kind == NoticeKind.ALL) {
-            noticeItems = NoticeCache.noticeList.stream().filter(noticeItem -> noticeItem.getExchange() == exchange).collect(Collectors.toList());
-        } else if (exchange == NoticeExchange.ALL && kind != NoticeKind.ALL) {
-            noticeItems = NoticeCache.noticeList.stream().filter(noticeItem -> noticeItem.getKind() == kind).collect(Collectors.toList());
+        if (exchange.equals(NoticeExchange.ALL)) {
+            noticeItems = NoticeCache.noticeList.stream()
+                    .filter(noticeItem -> noticeItem.getKind() == kind)
+                    .filter(noticeItem -> noticeItem.getTitle().toUpperCase().contains(keyword.toUpperCase()))
+                    .collect(Collectors.toList());
         } else {
-            noticeItems = NoticeCache.noticeList.stream().filter(noticeItem -> noticeItem.getExchange() == exchange && noticeItem.getKind() == kind).collect(Collectors.toList());
+            noticeItems = NoticeCache.noticeList.stream()
+                    .filter(noticeItem -> noticeItem.getKind() == kind)
+                    .filter(noticeItem -> noticeItem.getExchange().equals(exchange) && noticeItem.getTitle().toUpperCase().contains(keyword.toUpperCase()))
+                    .collect(Collectors.toList());
         }
 
         PagedListHolder<NoticeItem> pagedListHolder = new PagedListHolder(noticeItems);
@@ -130,52 +132,5 @@ public class ZoroNoticeService {
 
         return response;
 
-    }
-
-    public NoticePageResponse searchKeyword(NoticeExchange exchange, String keyword, Pageable pageable) {
-
-        List<NoticeItem> noticeItems;
-
-        if (exchange.equals(NoticeExchange.ALL)) {
-            noticeItems = NoticeCache.noticeList.stream()
-                    .filter(noticeItem -> noticeItem.getTitle().toUpperCase().contains(keyword.toUpperCase()))
-                    .collect(Collectors.toList());
-        } else {
-            noticeItems = NoticeCache.noticeList.stream()
-                    .filter(noticeItem -> noticeItem.getExchange().equals(exchange) && noticeItem.getTitle().toUpperCase().contains(keyword.toUpperCase()))
-                    .collect(Collectors.toList());
-        }
-
-        PagedListHolder<NoticeItem> pagedListHolder = new PagedListHolder(noticeItems);
-
-
-        List<MutableSortDefinition> sortDefinitions = Lists.newArrayList();
-
-        final Sort pageableSort = pageable.getSort();
-        if (pageableSort != null) {
-            Iterator<Sort.Order> iterator = pageableSort.iterator();
-            while (iterator.hasNext()) {
-                final Sort.Order order = iterator.next();
-                MutableSortDefinition sortDefinition = new MutableSortDefinition();
-                sortDefinition.setProperty(order.getProperty());
-                sortDefinition.setAscending(order.isAscending());
-                sortDefinitions.add(sortDefinition);
-            }
-        }
-
-        sort(pagedListHolder, sortDefinitions);
-
-        pagedListHolder.setPage(pageable.getPageNumber());
-        pagedListHolder.setPageSize(pageable.getPageSize());
-
-        NoticePageResponse response = NoticePageResponse.builder()
-                .currentPage(Long.valueOf(pageable.getPageNumber()))
-                .currentSize(Long.valueOf(pageable.getPageSize()))
-                .totalPage(Long.valueOf(pagedListHolder.getPageCount()))
-                .totalSize(Long.valueOf(pagedListHolder.getNrOfElements()))
-                .noticeItemList(pagedListHolder.getPageList())
-                .build();
-
-        return response;
     }
 }
