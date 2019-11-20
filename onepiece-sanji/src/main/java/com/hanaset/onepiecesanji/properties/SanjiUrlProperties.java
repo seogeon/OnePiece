@@ -35,4 +35,7 @@ public class SanjiUrlProperties {
 
     @Value("${binance.eventUrl}")
     private String binanceEventUrl;
+
+    @Value("${bitfinex.eventUrl}")
+    private String bitfinexEventUrl;
 }

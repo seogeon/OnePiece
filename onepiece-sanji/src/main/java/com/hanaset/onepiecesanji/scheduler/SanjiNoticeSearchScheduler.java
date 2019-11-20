@@ -23,6 +23,7 @@ public class SanjiNoticeSearchScheduler {
     private final SanjiHuobiService sanjiHuobiService;
 
     private final SanjiBinanaceService sanjiBinanaceService;
+    private final SanjiBitfinexService sanjiBitfinexService;
 
     public SanjiNoticeSearchScheduler(SanjiUpbitService sanjiUpbitService,
                                       SanjiBithumbService sanjiBithumbService,
@@ -31,7 +32,8 @@ public class SanjiNoticeSearchScheduler {
                                       SanjiCoinoneService sanjiCoinoneService,
                                       SanjiBitsonicService sanjiBitsonicService,
                                       SanjiHuobiService sanjiHuobiService,
-                                      SanjiBinanaceService sanjiBinanaceService) {
+                                      SanjiBinanaceService sanjiBinanaceService,
+                                      SanjiBitfinexService sanjiBitfinexService) {
         this.sanjiUpbitService = sanjiUpbitService;
         this.sanjiBithumbService = sanjiBithumbService;
         this.sanjiGdacService = sanjiGdacService;
@@ -40,25 +42,22 @@ public class SanjiNoticeSearchScheduler {
         this.sanjiBitsonicService = sanjiBitsonicService;
         this.sanjiHuobiService = sanjiHuobiService;
         this.sanjiBinanaceService = sanjiBinanaceService;
+        this.sanjiBitfinexService = sanjiBitfinexService;
     }
 
     @Scheduled(cron = "0 5 */1 * * *", zone = "Asia/Seoul")
     public void searchNotice() {
         sanjiUpbitService.searchUpbit();
-
         sanjiBithumbService.searchBithumbNotice();
-
         sanjiGdacService.searchGdacEvent();
         sanjiOkexService.searchOkexEvent();
-
         sanjiCoinoneService.searchCoinoneEvent();
-
         sanjiBitsonicService.searchBitsoicNotice();
         sanjiBitsonicService.searchBitsonicEvent();
-
         sanjiHuobiService.searchHuobiEvent();
 
         sanjiBinanaceService.searchBinanceEvent();
+        sanjiBitfinexService.searchBitfinexNotice();
 
         log.info("{} 데이터 Searching", ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
     }

@@ -50,6 +50,9 @@ public class OnepieceSanjiApplicationTests {
     @Autowired
     private SanjiBinanaceService sanjiBinanaceService;
 
+    @Autowired
+    private SanjiBitfinexService sanjiBitfinexService;
+
     @Test
     public void upbit() {
         System.out.println("=========================================");
@@ -108,4 +111,12 @@ public class OnepieceSanjiApplicationTests {
         sanjiBinanaceService.searchBinanceEvent();
         System.out.println("=========================================");
     }
+
+    @Test
+    public void bitfinex() {
+        System.out.println("=========================================");
+        sanjiBitfinexService.searchBitfinexNotice();
+        System.out.println("=========================================");
+    }
+
 }

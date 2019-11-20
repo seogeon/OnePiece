@@ -9,7 +9,8 @@ public enum  NoticeExchange {
     BITSONIC("BITSONIC"),
     HUOBI("HUOBI"),
     COINONE("COINONE"),
-    BINANCE("BINANCE");
+    BINANCE("BINANCE"),
+    BITFINEX("BITFINEX");
 
     String exchange;
 
