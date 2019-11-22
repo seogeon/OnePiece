@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import NoticeApi from '../../service/NoticeApi';
+import NoticeApi from '../../service/notice/NoticeApi';
 import SearchResult from './SearchResult'
 import './SearchBar.css';
 import Form from 'react-bootstrap/Form';

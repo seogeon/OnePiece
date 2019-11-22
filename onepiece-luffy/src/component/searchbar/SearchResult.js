@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
-import NoticeApi from "../../service/NoticeApi"
+import NoticeApi from "../../service/notice/NoticeApi"
 import Badge from "react-bootstrap/Badge";
 import './SearchBar.css';
 import Image from "react-bootstrap/Image";

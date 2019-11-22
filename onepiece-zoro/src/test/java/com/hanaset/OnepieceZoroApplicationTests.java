@@ -34,12 +34,12 @@ public class OnepieceZoroApplicationTests {
     @Autowired
     ZoroCacheLoadService zoroCacheLoadService;
 
-    @Test
-    public void pageTest() {
-        zoroCacheLoadService.loadNotice();
-        Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
-        Pageable pageable = PageRequest.of(2, 10, sort);
-        zoroNoticeService.findNotices(NoticeExchange.BITHUMB, NoticeKind.ALL, pageable);
-    }
+//    @Test
+//    public void pageTest() {
+//        zoroCacheLoadService.loadNotice();
+//        Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
+//        Pageable pageable = PageRequest.of(2, 10, sort);
+//        zoroNoticeService.findNotices(NoticeExchange.BITHUMB, NoticeKind.ALL, pageable);
+//    }
 
 }

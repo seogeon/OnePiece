@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './News.css';
-import NoticeApi from '../../service/NoticeApi'
+import NoticeApi from '../../service/notice/NoticeApi'
 import ListGroup from "react-bootstrap/esm/ListGroup";
 import Badge from "react-bootstrap/Badge";
 import Image from "react-bootstrap/esm/Image";

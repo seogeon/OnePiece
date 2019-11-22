@@ -1,0 +1,28 @@
+#kakao-login-btn {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+    border-color: white;
+    border-radius: 7px;
+    /*box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.40);*/
+}
+
+#login-bar {
+    display: flex;
+    margin-left: auto;
+}
+
+#kakao-login-btn:hover {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+    border-color: white;
+    border-radius: 7px;
+    box-shadow: 0 3px 4.94px 0.3px rgba(4, 26, 55, 0.4);
+}

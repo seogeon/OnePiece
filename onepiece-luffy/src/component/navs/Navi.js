@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Navi.css'
 import {Link} from "react-router-dom";
+import LoginBar from "../login/LoginBar"
 
 
 class Navi extends Component {
@@ -45,9 +46,11 @@ class Navi extends Component {
                             if (value === this.state.menu) {
                                 className += '-select';
                             }
-                            return <Link className={className} to={value} onClick={()=>this.onClick(value)}>{this.menu[value]}</Link>
+                            return <Link className={className} to={value}
+                                         onClick={() => this.onClick(value)}>{this.menu[value]}</Link>
                         })
                     }
+                    <LoginBar/>
                 </div>
             </div>
 
