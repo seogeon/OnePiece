@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://13.125.248.134:3306/Onepiece?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: admin
+    password: wjdqls56
+    url: jdbc:mysql://luke-database.cmprxqq8kkbj.ap-northeast-2.rds.amazonaws.com:3306/Onepiece?characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
