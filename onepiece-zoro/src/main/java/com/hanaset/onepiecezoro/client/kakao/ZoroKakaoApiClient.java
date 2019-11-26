@@ -1,7 +1,11 @@
 package com.hanaset.onepiecezoro.client.kakao;
 
+import com.hanaset.onepiecezoro.client.kakao.model.KakaoProfileRequest;
+import com.hanaset.onepiecezoro.client.kakao.model.KakaoProfileResponse;
 import com.hanaset.onepiecezoro.client.kakao.model.KakaoTokenRequest;
 import com.hanaset.onepiecezoro.client.kakao.model.KakaoTokenResponse;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -15,8 +19,13 @@ public class ZoroKakaoApiClient {
 
     public ZoroKakaoApiClient() {
 
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(KakaoContants.API)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -24,7 +33,13 @@ public class ZoroKakaoApiClient {
         this.zoroKakaoApiService = retrofit.create(ZoroKakaoApiService.class);
     }
 
-    public Call<KakaoTokenResponse> createToken(KakaoTokenRequest request) {
-        return zoroKakaoApiService.createToken(request.getGrantType(), request.getClientId(), request.getRedirectUri(), request.getCode());
+//    public Call<KakaoTokenResponse> createToken(KakaoTokenRequest request) {
+//        return zoroKakaoApiService.createToken(request.getGrantType(), request.getClientId(), request.getRedirectUri(), request.getCode());
+//    }
+
+    public Call<KakaoProfileResponse> getProfile(KakaoProfileRequest request) {
+
+        String authToken = "Bearer " + request.getToken();
+        return zoroKakaoApiService.getProfile(authToken);
     }
 }

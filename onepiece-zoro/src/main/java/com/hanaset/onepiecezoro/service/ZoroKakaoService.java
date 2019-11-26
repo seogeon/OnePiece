@@ -1,9 +1,8 @@
 package com.hanaset.onepiecezoro.service;
 
-import com.hanaset.onepiecezoro.client.kakao.KakaoContants;
 import com.hanaset.onepiecezoro.client.kakao.ZoroKakaoApiClient;
-import com.hanaset.onepiecezoro.client.kakao.model.KakaoTokenRequest;
-import com.hanaset.onepiecezoro.client.kakao.model.KakaoTokenResponse;
+import com.hanaset.onepiecezoro.client.kakao.model.KakaoProfileRequest;
+import com.hanaset.onepiecezoro.client.kakao.model.KakaoProfileResponse;
 import com.hanaset.onepiecezoro.web.exception.ZoroException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,31 +20,24 @@ public class ZoroKakaoService {
         this.zoroKakaoApiClient = zoroKakaoApiClient;
     }
 
-    public KakaoTokenResponse createToken(String token) {
+    public KakaoProfileResponse getProfile(KakaoProfileRequest request) {
 
-        KakaoTokenRequest request = KakaoTokenRequest.builder()
-                .clientId(KakaoContants.REST_API_KEY)
-                .grantType("authorization_code")
-                .redirectUri(KakaoContants.LOCAL_REDIERCT_URI)
-                .code(token)
-                .build();
-
-        log.info(token);
         try {
-            Response<KakaoTokenResponse> response = zoroKakaoApiClient.createToken(request).execute();
+
+            Response<KakaoProfileResponse> response = zoroKakaoApiClient.getProfile(request).execute();
 
             if (response.isSuccessful()) {
                 log.info("{}",response.body());
             } else {
-                log.error("KAKAO CREATE TOKEN ERROR : {}", response.errorBody().byteString());
-                throw new ZoroException("error_code" ,"KAKAO POST TOKEN ERROR : " + response.errorBody().byteString());
+                log.error("KAKAO GET PROFILE ERROR : {}", response.errorBody().byteString());
+                throw new ZoroException("error_code" ,"KAKAO GET PROFILE ERROR : " + response.errorBody().byteString());
             }
 
             return response.body();
 
         } catch (IOException e) {
-            log.error("KAKAO CREATE TOKEN IOException : {}", e.getMessage());
-            throw new ZoroException("error_code", "KAKAO POST TOKEN IOException");
+            log.error("KAKAO GET PROFILE IOException : {}", e.getMessage());
+            throw new ZoroException("error_code", "KAKAO GET PROFILE IOException");
         }
     }
 }

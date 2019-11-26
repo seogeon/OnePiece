@@ -3,6 +3,7 @@ package com.hanaset.onepiecezoro.web.support;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -24,6 +25,15 @@ public abstract class ZoroApiRestSupport {
                         "msg", msg,
                         "data", "{}"
                 ), HttpStatus.OK
+        );
+    }
+
+    protected static <T> ResponseEntity<?> responseHeaer(T data, HttpHeaders httpHeaders) {
+        return new ResponseEntity<>(
+                ImmutableMap.of(
+                        "code", "0",
+                        "data", data != null ? data : new JSONObject()
+                ), httpHeaders, HttpStatus.OK
         );
     }
 }

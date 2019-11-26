@@ -24,7 +24,7 @@ public class ZoroCacheScheduler {
     @Scheduled(cron = "0 10 */1 * * *")
     public void loadNotice() {
         zoroCacheLoadService.loadNotice();
-        log.info("{} 대이터 Loading", ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
+        log.info("{} 데이터 Loading", ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
     }
 
 }

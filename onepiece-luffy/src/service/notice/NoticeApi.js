@@ -2,20 +2,21 @@ import axios from 'axios';
 
 class NoticeApi {
 
-    static api = "http://13.125.248.134:5001";
+    //static api = "http://13.125.248.134:5001";
+    static api = "http://localhost:5001";
 
     static async getNewsToOversea(oversea) {
 
         let response =
             await axios.get(this.api + "/notice?oversea=" + oversea)
 
-            .then(response => {
-                // console.log(response);
-                return response;
-            })
-            .catch(response => {
-                return response;
-            })
+                .then(response => {
+                    // console.log(response);
+                    return response;
+                })
+                .catch(response => {
+                    return response;
+                })
         return response;
     }
 
@@ -40,7 +41,7 @@ class NoticeApi {
             await axios.get(this.api + "/notice/" + exchange + "?keyword=" + keyword + "&page=" + page + "&kind=" + kind)
 
                 .then(response => {
-                    // console.log(response);
+                    //] console.log(response);
                     return response;
                 })
                 .catch(response => {
@@ -49,22 +50,20 @@ class NoticeApi {
         return response;
     }
 
-    static async searchEvent(exchange, keyword, page) {
+    static async authentication(token) {
 
         let response =
-            await axios.get(this.api + "/notice/event/" + exchange + "?keyword=" + keyword + "&page=" + page)
+            await axios.post(this.api + "/auth", {
+                token: token
+            }).then(response => {
+                return response;
+            }).catch(response => {
+                return response;
+            })
 
-                .then(response => {
-                    // console.log(response);
-                    return response;
-                })
-                .catch(response => {
-                    return response;
-                })
         return response;
     }
 }
-
 
 
 export default NoticeApi;
