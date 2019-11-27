@@ -49,20 +49,6 @@ class NoticeApi {
                 })
         return response;
     }
-
-    static async authentication(token) {
-
-        let response =
-            await axios.post(this.api + "/auth", {
-                token: token
-            }).then(response => {
-                return response;
-            }).catch(response => {
-                return response;
-            })
-
-        return response;
-    }
 }
 
 

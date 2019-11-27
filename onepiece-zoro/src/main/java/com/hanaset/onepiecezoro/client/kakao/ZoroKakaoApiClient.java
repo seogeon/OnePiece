@@ -1,9 +1,7 @@
 package com.hanaset.onepiecezoro.client.kakao;
 
-import com.hanaset.onepiecezoro.client.kakao.model.KakaoProfileRequest;
+import com.hanaset.onepiecezoro.client.kakao.model.KakaoLoginRequest;
 import com.hanaset.onepiecezoro.client.kakao.model.KakaoProfileResponse;
-import com.hanaset.onepiecezoro.client.kakao.model.KakaoTokenRequest;
-import com.hanaset.onepiecezoro.client.kakao.model.KakaoTokenResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.stereotype.Component;
@@ -37,7 +35,7 @@ public class ZoroKakaoApiClient {
 //        return zoroKakaoApiService.createToken(request.getGrantType(), request.getClientId(), request.getRedirectUri(), request.getCode());
 //    }
 
-    public Call<KakaoProfileResponse> getProfile(KakaoProfileRequest request) {
+    public Call<KakaoProfileResponse> getProfile(KakaoLoginRequest request) {
 
         String authToken = "Bearer " + request.getToken();
         return zoroKakaoApiService.getProfile(authToken);

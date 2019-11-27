@@ -13,6 +13,7 @@
 #login-bar {
     display: flex;
     margin-left: auto;
+    align-items: center;
 }
 
 #kakao-login-btn:hover {
@@ -24,5 +25,34 @@
     background-color: white;
     border-color: white;
     border-radius: 7px;
+    box-shadow: 0 3px 4.94px 0.3px rgba(4, 26, 55, 0.4);
+}
+
+#logout-btn-img {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+}
+
+#logout-btn {
+    align-items: center;
+    margin: 0;
+    padding-right: 3px;
+}
+
+#logout-btn-img:hover {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: darkgoldenrod;
+    border-color: darkgoldenrod;
+    border-radius: 100px;
     box-shadow: 0 3px 4.94px 0.3px rgba(4, 26, 55, 0.4);
 }

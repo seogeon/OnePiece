@@ -3,7 +3,7 @@ package com.hanaset.onepiecezoro.client.kakao.model;
 import lombok.Data;
 
 @Data
-public class KakaoProfileRequest {
+public class KakaoLoginRequest {
 
     private String token;
 }
