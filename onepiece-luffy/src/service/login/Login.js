@@ -1,9 +1,9 @@
 import axios from 'axios';
+import ServerConstant from "../constant/ServerConstant";
 
 class Login {
 
-    static api = "http://13.125.248.134:5001";
-    //static api = "http://localhost:5001";
+    static api = ServerConstant.api;
 
     static async login(token) {
 

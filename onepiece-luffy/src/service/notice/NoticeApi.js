@@ -1,11 +1,13 @@
 import axios from 'axios';
+import ServerConstant from "../constant/ServerConstant";
 
 class NoticeApi {
 
-    static api = "http://13.125.248.134:5001";
-    //static api = "http://localhost:5001";
+    static api = ServerConstant.api;
 
     static async getNewsToOversea(oversea) {
+
+        console.log(this.api);
 
         let response =
             await axios.get(this.api + "/notice?oversea=" + oversea)

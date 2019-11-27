@@ -1,5 +1,7 @@
 package com.hanaset.onepiecezoro.service;
 
+import com.hanaset.onepiececommon.entity.UserEntity;
+import com.hanaset.onepiececommon.repository.UserRepository;
 import com.hanaset.onepiecezoro.cache.LoginUserCache;
 import com.hanaset.onepiecezoro.client.kakao.ZoroKakaoApiClient;
 import com.hanaset.onepiecezoro.client.kakao.model.KakaoLoginRequest;
@@ -18,9 +20,12 @@ import java.io.IOException;
 public class ZoroKakaoService {
 
     private final ZoroKakaoApiClient zoroKakaoApiClient;
+    private final UserRepository userRepository;
 
-    public ZoroKakaoService(ZoroKakaoApiClient zoroKakaoApiClient) {
+    public ZoroKakaoService(ZoroKakaoApiClient zoroKakaoApiClient,
+                            UserRepository userRepository) {
         this.zoroKakaoApiClient = zoroKakaoApiClient;
+        this.userRepository = userRepository;
     }
 
     public KakaoLogin getProfile(Long userId) {
@@ -50,7 +55,16 @@ public class ZoroKakaoService {
                     .token(request.getToken())
                     .build();
 
-            LoginUserCache.currentUser.put(response.body().getId(), userData);
+            LoginUserCache.currentUser.put(userData.getId(), userData);
+
+            if(userRepository.findByUserId(userData.getId()) == null) {
+
+                userRepository.save(UserEntity.builder()
+                        .userId(userData.getId())
+                        .userName(userData.getNickname())
+                        .email(userData.getEmail())
+                        .build());
+            }
 
             return userData;
 
