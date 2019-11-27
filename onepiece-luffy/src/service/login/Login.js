@@ -2,8 +2,8 @@ import axios from 'axios';
 
 class Login {
 
-    //static api = "http://13.125.248.134:5001";
-    static api = "http://localhost:5001";
+    static api = "http://13.125.248.134:5001";
+    //static api = "http://localhost:5001";
 
     static async login(token) {
 
