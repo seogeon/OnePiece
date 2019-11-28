@@ -1,5 +1,6 @@
 package com.hanaset;
 
+import com.hanaset.onepiececommon.repository.ExchangeWalletRepository;
 import com.hanaset.onepiecesanji.client.RestApiClient;
 import com.hanaset.onepiecesanji.service.*;
 import com.hanaset.onepiecesanji.properties.SanjiUrlProperties;
@@ -22,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ContextConfiguration(classes = {
         NoticeRepository.class,
         RestApiClient.class,
+        ExchangeWalletRepository.class,
         SanjiUrlProperties.class
 })
 public class OnepieceSanjiApplicationTests {
@@ -52,6 +54,9 @@ public class OnepieceSanjiApplicationTests {
 
     @Autowired
     private SanjiBitfinexService sanjiBitfinexService;
+
+    @Autowired
+    private SanjiWhaleAlertService sanjiWhaleAlertService;
 
     @Test
     public void upbit() {
@@ -119,4 +124,10 @@ public class OnepieceSanjiApplicationTests {
         System.out.println("=========================================");
     }
 
+    @Test
+    public void whale() {
+        System.out.println("=========================================");
+        sanjiWhaleAlertService.searchTransactions();
+        System.out.println("=========================================");
+    }
 }

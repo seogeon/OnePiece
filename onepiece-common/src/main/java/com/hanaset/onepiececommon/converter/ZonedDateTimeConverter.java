@@ -13,10 +13,10 @@ public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime,
     @Override
     public Timestamp convertToDatabaseColumn(ZonedDateTime entityValue) {
         if (entityValue == null)
-            entityValue = ZonedDateTime.now(ZoneId.of("UTC"));
+            entityValue = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
-        if (!entityValue.getZone().equals(ZoneId.of("UTC"))) {
-            entityValue = entityValue.withZoneSameInstant(ZoneId.of("UTC"));
+        if (!entityValue.getZone().equals(ZoneId.of("Asia/Seoul"))) {
+            entityValue = entityValue.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
         }
 
         return Timestamp.from(entityValue.toInstant());

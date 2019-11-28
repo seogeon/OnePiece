@@ -6,6 +6,7 @@ import com.hanaset.onepiecesanji.client.gdac.SanjiGdacRestApiClient;
 import com.hanaset.onepiecesanji.client.huobi.SanjiHuobiRestApiClient;
 import com.hanaset.onepiecesanji.client.okex.SanjiOkexRestApiClient;
 import com.hanaset.onepiecesanji.client.upbit.SanjiUpbitRestApiClient;
+import com.hanaset.onepiecesanji.client.whaleAlert.SanjiWhaleAlertApiClient;
 import com.hanaset.onepiecesanji.properties.SanjiUrlProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,14 +35,27 @@ public class RestApiClient {
     }
 
     @Bean
-    public SanjiHuobiRestApiClient SanjiHuobiRestApiClient() { return new SanjiHuobiRestApiClient(sanjiUrlProperties);}
+    public SanjiHuobiRestApiClient SanjiHuobiRestApiClient() {
+        return new SanjiHuobiRestApiClient(sanjiUrlProperties);
+    }
 
     @Bean
-    public SanjiOkexRestApiClient SanjiOkexRestApiClient() { return new SanjiOkexRestApiClient(sanjiUrlProperties);}
+    public SanjiOkexRestApiClient SanjiOkexRestApiClient() {
+        return new SanjiOkexRestApiClient(sanjiUrlProperties);
+    }
 
     @Bean
-    public SanjiCoinoneRestApiClient SanjiCoinoneRestApiClient() { return new SanjiCoinoneRestApiClient(sanjiUrlProperties);}
+    public SanjiCoinoneRestApiClient SanjiCoinoneRestApiClient() {
+        return new SanjiCoinoneRestApiClient(sanjiUrlProperties);
+    }
 
     @Bean
-    public SanjiBinanceRestApiClient SanjiBinanceRestApiClient() { return new SanjiBinanceRestApiClient(sanjiUrlProperties);}
+    public SanjiBinanceRestApiClient SanjiBinanceRestApiClient() {
+        return new SanjiBinanceRestApiClient(sanjiUrlProperties);
+    }
+
+    @Bean
+    public SanjiWhaleAlertApiClient SanjiWhaleAlertApiClient() {
+        return new SanjiWhaleAlertApiClient();
+    }
 }
