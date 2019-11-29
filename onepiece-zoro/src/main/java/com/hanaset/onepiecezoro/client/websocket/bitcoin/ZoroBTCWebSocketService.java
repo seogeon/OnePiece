@@ -26,7 +26,7 @@ public class ZoroBTCWebSocketService {
     }
 
     @PostConstruct
-    public void websockBTC_connect() {
+    public void websockBTCConnect() {
 
         log.info("<======================== WebSocket Connecting =======================>");
 
@@ -39,6 +39,10 @@ public class ZoroBTCWebSocketService {
         Map<String, ExchangeWalletEntity> walletEntityMap = exchangeWalletEntities.stream().collect(Collectors.toMap(t -> t.getAddress(), t -> t));
 
         zoroBTCWebSocketClient.connect(messageList, walletEntityMap);
+    }
+
+    public void websockBTCDisconnect() {
+        zoroBTCWebSocketClient.disconnect();
     }
 
 

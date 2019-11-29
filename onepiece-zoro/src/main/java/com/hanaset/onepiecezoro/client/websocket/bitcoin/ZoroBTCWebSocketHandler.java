@@ -9,7 +9,6 @@ import com.hanaset.onepiecezoro.client.websocket.bitcoin.model.BTCInput;
 import com.hanaset.onepiecezoro.client.websocket.bitcoin.model.BTCOut;
 import com.hanaset.onepiecezoro.client.websocket.bitcoin.model.BTCResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -17,6 +16,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.BinaryWebSocketHandler;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
@@ -69,12 +69,15 @@ public class ZoroBTCWebSocketHandler extends BinaryWebSocketHandler {
                         }).collect(Collectors.toList());
 
                 String inputExchange;
+                String crypto = "undefined";
                 Long value = 0L;
 
                 if (inputs.size() == 0) {
                     inputExchange = "undefined";
                 } else {
+//                    System.out.println(inputs.get(0).getPrevOut().getAddr());
                     inputExchange = walletEntityMap.get(inputs.get(0).getPrevOut().getAddr()).getExchange();
+                    crypto = walletEntityMap.get(inputs.get(0).getPrevOut().getAddr()).getCrypto();
                     value = inputs.stream().map(btcInput -> btcInput.getPrevOut().getValue()).reduce(Long::sum).get();
                 }
 
@@ -97,18 +100,16 @@ public class ZoroBTCWebSocketHandler extends BinaryWebSocketHandler {
                 if (outs.size() == 0) {
                     outputExchange = "undefined";
                 } else {
+
+//                    System.out.println(outs.get(0).getAddr());
                     outputExchange = walletEntityMap.get(outs.get(0).getAddr()).getExchange();
                     value = outs.stream().map(btcOut -> btcOut.getValue()).reduce(Long::sum).get();
+                    crypto = walletEntityMap.get(outs.get(0).getAddr()).getCrypto();
                 }
-
-                log.info("{} -> {} : {}", inputExchange, outputExchange, value);
+                log.info("[{}] {} -> {} : {} BTC", crypto.toUpperCase(), inputExchange, outputExchange, BigDecimal.valueOf(value/100000000d).toPlainString()); // 100000000d -> 사토시에서 BTC로 변경
             }
 
             prevData = data;
-
-            System.out.println("==============================================");
-            System.out.println(response);
-            System.out.println("==============================================");
 
         } catch (JsonParseException e) {
             log.error("BTC WebSocket JsonParseException : {}", e.getMessage());
