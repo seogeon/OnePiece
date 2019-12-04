@@ -40,7 +40,7 @@ class NewsBody extends Component {
                 {data.map(function(object, i) {
 
                     let date = new Date();
-                    let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+                    let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + ("0" + date.getDate()).slice(-2);
 
                     if(today === object.updatedAt.split("T")[0]) {
                         return (

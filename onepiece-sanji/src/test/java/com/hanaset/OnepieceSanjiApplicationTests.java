@@ -125,9 +125,25 @@ public class OnepieceSanjiApplicationTests {
     }
 
     @Test
+    public void 토탈() {
+        sanjiUpbitService.searchUpbit();
+        sanjiBithumbParser.searchBithumbNotice();
+        sanjiGdacService.searchGdacEvent();
+        sanjiOkexService.searchOkexEvent();
+        sanjiBitsonicService.searchBitsonicEvent();
+        sanjiBitsonicService.searchBitsoicNotice();
+        sanjiHuobiService.searchHuobiEvent();
+        sanjiCoinoneService.searchCoinoneEvent();
+        sanjiBinanaceService.searchBinanceEvent();
+        sanjiBitfinexService.searchBitfinexNotice();
+    }
+
+    @Test
     public void whale() {
         System.out.println("=========================================");
         sanjiWhaleAlertService.searchTransactions();
         System.out.println("=========================================");
     }
+
+
 }

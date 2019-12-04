@@ -9,8 +9,6 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-
-    compile("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 // staging 으로 jar archive
