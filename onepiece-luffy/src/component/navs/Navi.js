@@ -50,7 +50,7 @@ class Navi extends Component {
                                          onClick={() => this.onClick(value)}>{this.menu[value]}</Link>
                         })
                     }
-                    <LoginBar/>
+                    {/*<LoginBar/>*/}
                 </div>
             </div>
 
