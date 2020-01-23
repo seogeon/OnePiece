@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
+@Service
 public class SanjiBithumbService {
 
     private final SanjiUrlProperties sanjiUrlProperties;

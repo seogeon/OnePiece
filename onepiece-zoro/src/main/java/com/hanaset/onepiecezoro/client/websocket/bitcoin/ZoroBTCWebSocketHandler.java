@@ -52,6 +52,8 @@ public class ZoroBTCWebSocketHandler extends BinaryWebSocketHandler {
             ObjectMapper objectMapper = new ObjectMapper();
             BTCResponse response = objectMapper.readValue(message.getPayload(), BTCResponse.class);
 
+            log.info("{}", response);
+
             BTCData data = response.getX();
 
             if (!data.getHash().equals(prevData.getHash())) {
@@ -75,7 +77,6 @@ public class ZoroBTCWebSocketHandler extends BinaryWebSocketHandler {
                 if (inputs.size() == 0) {
                     inputExchange = "undefined";
                 } else {
-//                    System.out.println(inputs.get(0).getPrevOut().getAddr());
                     inputExchange = walletEntityMap.get(inputs.get(0).getPrevOut().getAddr()).getExchange();
                     crypto = walletEntityMap.get(inputs.get(0).getPrevOut().getAddr()).getCrypto();
                     value = inputs.stream().map(btcInput -> btcInput.getPrevOut().getValue()).reduce(Long::sum).get();
