@@ -9,7 +9,6 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-import static netscape.security.Privilege.SESSION;
 import static org.springframework.messaging.simp.stomp.StompHeaders.SESSION;
 
 
